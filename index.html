@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>VS Enterprises - Pro Finance & Collection</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* =========================================
+           COLOR PSYCHOLOGY & THEME SETTINGS
+           ========================================= */
+        :root {
+            /* Trust, Authority, Security */
+            --primary: #0F172A; 
+            /* Wealth, Growth, Positivity */
+            --success: #059669; 
+            --success-light: #D1FAE5;
+            /* Alert, Action, Urgency */
+            --danger: #DC2626;  
+            --danger-light: #FEE2E2;
+            /* Premium Accent, Gold/Prosperity */
+            --accent: #F59E0B;  
+            /* Clean UI Backgrounds */
+            --bg-main: #F8FAFC;
+            --surface: #FFFFFF;
+            /* Text Colors */
+            --text-dark: #1E293B;
+            --text-muted: #64748B;
+            --border: #E2E8F0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
+        body { background-color: var(--bg-main); color: var(--text-dark); overflow-x: hidden; padding-bottom: 90px; }
+
+        /* =========================================
+           1. SPLASH SCREEN (GOD IMAGE)
+           ========================================= */
+        #splash-screen {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: radial-gradient(circle, #1E293B 0%, #0F172A 100%);
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            z-index: 9999; transition: opacity 0.8s ease;
+        }
+        .god-image-container {
+            width: 250px; height: 350px; border-radius: 24px; overflow: hidden;
+            box-shadow: 0 0 60px rgba(245, 158, 11, 0.4);
+            border: 2px solid rgba(245, 158, 11, 0.6);
+            animation: flashZoom 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+        .god-image-container img { width: 100%; height: 100%; object-fit: cover; }
+        .splash-text {
+            color: var(--accent); font-size: 28px; font-weight: 800; margin-top: 30px; letter-spacing: 2.5px;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.5); opacity: 0; animation: fadeInUp 1s ease 1s forwards;
+        }
+
+        @keyframes flashZoom {
+            0% { transform: scale(0.4); opacity: 0; filter: brightness(3); }
+            100% { transform: scale(1); opacity: 1; filter: brightness(1); }
+        }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* =========================================
+           2. HEADER (Top Bar)
+           ========================================= */
+        header {
+            background: var(--surface); padding: 20px 20px 15px; position: sticky; top: 0; z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03); display: flex; justify-content: space-between; align-items: center;
+        }
+        .header-title h1 { font-size: 20px; font-weight: 800; color: var(--primary); }
+        .header-title p { font-size: 12px; font-weight: 600; color: var(--text-muted); margin-top: 2px; }
+        .date-badge { background: var(--bg-main); padding: 8px 14px; border-radius: 12px; font-size: 13px; font-weight: 600; color: var(--primary); border: 1px solid var(--border); }
+
+        /* =========================================
+           3. DASHBOARD CARDS (Alignment Fixed)
+           ========================================= */
+        .container { padding: 20px; }
+        .section-title { font-size: 16px; font-weight: 700; color: var(--primary); margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
+        
+        .hero-card {
+            background: linear-gradient(135deg, var(--primary) 0%, #1E293B 100%);
+            border-radius: 20px; padding: 25px 20px; color: white; margin-bottom: 20px;
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.2); position: relative; overflow: hidden;
+        }
+        .hero-card::after { content: ''; position: absolute; right: -20px; top: -20px; width: 100px; height: 100px; background: rgba(255,255,255,0.05); border-radius: 50%; }
+        .hero-card h3 { font-size: 13px; font-weight: 500; opacity: 0.8; text-transform: uppercase; letter-spacing: 1px; }
+        .hero-card h2 { font-size: 34px; font-weight: 800; margin-top: 5px; color: var(--accent); }
+
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 25px; }
+        .stat-card {
+            background: var(--surface); padding: 18px 15px; border-radius: 16px; border: 1px solid var(--border);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02); display: flex; flex-direction: column; gap: 8px;
+        }
+        .stat-card.green { border-bottom: 4px solid var(--success); }
+        .stat-card.red { border-bottom: 4px solid var(--danger); }
+        .stat-card h4 { font-size: 12px; color: var(--text-muted); font-weight: 600; }
+        .stat-card h3 { font-size: 22px; font-weight: 800; color: var(--text-dark); }
+        .stat-badge { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 700; padding: 4px 8px; border-radius: 6px; width: fit-content; }
+        .bg-green-light { background: var(--success-light); color: var(--success); }
+        .bg-red-light { background: var(--danger-light); color: var(--danger); }
+
+        /* =========================================
+           4. LISTS & CARDS (Perfect Alignment)
+           ========================================= */
+        .list-card {
+            background: var(--surface); border-radius: 16px; padding: 18px; margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03); border: 1px solid var(--border);
+        }
+        .lc-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+        .lc-title { font-size: 16px; font-weight: 700; color: var(--primary); }
+        .lc-subtitle { font-size: 12px; color: var(--text-muted); margin-top: 4px; font-weight: 500; }
+        .lc-amount { font-size: 18px; font-weight: 800; color: var(--primary); text-align: right; }
+        .lc-type { font-size: 11px; padding: 3px 8px; background: #F1F5F9; border-radius: 6px; color: var(--text-muted); font-weight: 600; }
+
+        .lc-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
+        .btn { padding: 12px; border-radius: 10px; border: none; font-weight: 700; font-size: 13px; cursor: pointer; transition: 0.2s; display: flex; justify-content: center; align-items: center; gap: 6px; }
+        .btn:active { transform: scale(0.96); }
+        .btn-success { background: var(--success); color: white; box-shadow: 0 4px 10px rgba(5, 150, 105, 0.2); }
+        .btn-danger { background: var(--danger-light); color: var(--danger); }
+        .btn-disabled { background: var(--success-light); color: var(--success); width: 100%; grid-column: span 2; pointer-events: none; }
+
+        /* =========================================
+           5. NEW ENTRY FORM
+           ========================================= */
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-size: 13px; font-weight: 600; color: var(--text-dark); margin-bottom: 8px; }
+        .input-control {
+            width: 100%; padding: 15px; border: 1.5px solid var(--border); border-radius: 12px;
+            font-size: 15px; background: var(--surface); color: var(--text-dark); font-weight: 500;
+            transition: all 0.3s; appearance: none;
+        }
+        .input-control:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(15, 23, 42, 0.05); outline: none; }
+        
+        .preview-box { background: #F8FAFC; border: 1px dashed #CBD5E1; border-radius: 12px; padding: 15px; margin-top: 10px; }
+        .preview-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px; color: var(--text-muted); font-weight: 500; }
+        .preview-row:last-child { margin-bottom: 0; font-size: 16px; color: var(--primary); font-weight: 800; border-top: 1px solid var(--border); padding-top: 8px; }
+
+        .btn-submit { width: 100%; background: var(--primary); color: var(--accent); padding: 16px; border-radius: 12px; font-size: 16px; font-weight: 800; border: none; margin-top: 10px; cursor: pointer; box-shadow: 0 4px 15px rgba(15, 23, 42, 0.2); }
+
+        /* =========================================
+           6. BOTTOM NAVIGATION
+           ========================================= */
+        .bottom-nav {
+            position: fixed; bottom: 0; left: 0; width: 100%; background: var(--surface);
+            display: flex; justify-content: space-around; padding: 12px 5px 20px;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.04); z-index: 1000; border-top: 1px solid var(--border);
+        }
+        .nav-item {
+            display: flex; flex-direction: column; align-items: center; gap: 6px;
+            color: var(--text-muted); font-size: 11px; font-weight: 600; cursor: pointer; transition: 0.3s; flex: 1;
+        }
+        .nav-item i { font-size: 20px; }
+        .nav-item.active { color: var(--primary); }
+        .nav-item.active i { color: var(--primary); transform: translateY(-3px); }
+
+        .view-section { display: none; animation: fadeIn 0.4s ease; }
+        .view-section.active { display: block; }
+        .empty-state { text-align: center; padding: 40px 20px; color: var(--text-muted); font-size: 14px; font-weight: 500; }
+        .empty-state i { font-size: 40px; color: #CBD5E1; margin-bottom: 15px; }
+
+    </style>
+</head>
+<body>
+
+    <div id="splash-screen">
+        <div class="god-image-container">
+            <img src="1000072178.jpg" alt="God Image" onerror="this.src='https://via.placeholder.com/250x350/0F172A/F59E0B?text=VS+Finance'">
+        </div>
+        <div class="splash-text">VS ENTERPRISES</div>
+    </div>
+
+    <div id="main-app">
+        
+        <header>
+            <div class="header-title">
+                <h1>VS Finance</h1>
+                <p>Premium Management</p>
+            </div>
+            <div class="date-badge" id="display-date">Today</div>
+        </header>
+
+        <div id="view-dashboard" class="view-section active container">
+            
+            <div class="hero-card">
+                <h3>Today's Target Amount</h3>
+                <h2 id="dash-target">₹ 0</h2>
+                <div style="margin-top: 15px; font-size: 13px; display: flex; gap: 15px; font-weight: 600;">
+                    <span><i class="fa-solid fa-users"></i> <span id="dash-total-people">0</span> Accounts</span>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="stat-card green">
+                    <h4>Collected</h4>
+                    <h3 id="dash-collected">₹ 0</h3>
+                    <div class="stat-badge bg-green-light" id="dash-paid-count">0 Paid</div>
+                </div>
+                <div class="stat-card red">
+                    <h4>Pending Dues</h4>
+                    <h3 id="dash-pending">₹ 0</h3>
+                    <div class="stat-badge bg-red-light" id="dash-pending-count">0 Pending</div>
+                </div>
+            </div>
+
+            <h2 class="section-title"><i class="fa-solid fa-clipboard-list"></i> Today's Action List</h2>
+            <div id="today-list"></div>
+        </div>
+
+        <div id="view-given" class="view-section container">
+            <div class="hero-card" style="background: linear-gradient(135deg, #059669 0%, #047857 100%);">
+                <h3>Total Amount Given Today</h3>
+                <h2 id="dash-given-today">₹ 0</h2>
+                <div style="margin-top: 15px; font-size: 13px; display: flex; gap: 15px; font-weight: 600;">
+                    <span><i class="fa-solid fa-user-check"></i> <span id="dash-given-count">0</span> New Customers Today</span>
+                </div>
+            </div>
+            
+            <h2 class="section-title"><i class="fa-solid fa-hand-holding-dollar"></i> Disbursed Accounts (Today)</h2>
+            <div id="given-list"></div>
+        </div>
+
+        <div id="view-entry" class="view-section container">
+            <h2 class="section-title" style="font-size: 20px; margin-bottom: 20px;"><i class="fa-solid fa-user-plus"></i> Add New Account</h2>
+            
+            <form id="entryForm" onsubmit="saveEntry(event)">
+                <div class="form-group">
+                    <label>Customer Name (வாடிக்கையாளர் பெயர்)</label>
+                    <input type="text" id="cName" class="input-control" required placeholder="Ex: Rakesh">
+                </div>
+                
+                <div class="grid-2" style="margin-bottom: 0;">
+                    <div class="form-group">
+                        <label>Given Amount (அசல்)</label>
+                        <input type="number" id="cPrincipal" class="input-control" required placeholder="₹" oninput="calcEMI()">
+                    </div>
+                    <div class="form-group">
+                        <label>Interest (வட்டி)</label>
+                        <input type="number" id="cInterest" class="input-control" required placeholder="₹" oninput="calcEMI()">
+                    </div>
+                </div>
+
+                <div class="grid-2" style="margin-bottom: 0;">
+                    <div class="form-group">
+                        <label>Due Type (வகை)</label>
+                        <select id="cType" class="input-control">
+                            <option value="Daily">Daily (தினம்)</option>
+                            <option value="Weekly">Weekly (வாரம்)</option>
+                            <option value="Monthly">Monthly (மாதம்)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Total Dues (எண்ணிக்கை)</label>
+                        <input type="number" id="cDuesCount" class="input-control" required placeholder="Ex: 100" oninput="calcEMI()">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Calculation Preview</label>
+                    <div class="preview-box">
+                        <div class="preview-row"><span>Principal</span> <span id="prevP">₹ 0</span></div>
+                        <div class="preview-row"><span>Interest</span> <span id="prevI">₹ 0</span></div>
+                        <div class="preview-row" style="color: var(--primary);"><span>Total Return</span> <span id="prevTotal">₹ 0</span></div>
+                        <div class="preview-row"><span>EMI Amount (Per Due)</span> <span id="prevEmi">₹ 0</span></div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-submit">Save & Disburse</button>
+            </form>
+        </div>
+
+        <div class="bottom-nav">
+            <div class="nav-item active" onclick="switchNav('view-dashboard', this)">
+                <i class="fa-solid fa-wallet"></i><span>Collection</span>
+            </div>
+            <div class="nav-item" onclick="switchNav('view-given', this)">
+                <i class="fa-solid fa-money-bill-transfer"></i><span>Given Today</span>
+            </div>
+            <div class="nav-item" onclick="switchNav('view-entry', this)">
+                <i class="fa-solid fa-circle-plus"></i><span>New Entry</span>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // --- 1. INITIALIZATION & SPLASH ---
+        let todayDateString = new Date().toLocaleDateString('en-CA'); // Standard YYYY-MM-DD format for internal logic
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const options = { day: 'numeric', month: 'short', year: 'numeric' };
+            document.getElementById("display-date").innerText = new Date().toLocaleDateString('en-IN', options);
+
+            setTimeout(() => {
+                document.getElementById("splash-screen").style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById("splash-screen").style.display = 'none';
+                    document.getElementById("main-app").style.display = 'block';
+                    initLogic();
+                }, 800);
+            }, 2500); // Fast 2.5s splash
+        });
+
+        // --- 2. DATABASE MANAGEMENT ---
+        let dbCustomers = JSON.parse(localStorage.getItem("vs_v3_db")) || [];
+        
+        function initLogic() {
+            // Reset daily status if app is opened on a new day
+            let lastOpened = localStorage.getItem("vs_v3_lastdate");
+            if (lastOpened !== todayDateString) {
+                dbCustomers.forEach(c => {
+                    // Only reset if loan is active
+                    if (c.duesPaid < c.totalDues) {
+                        c.statusToday = 'unpaid'; 
+                    }
+                });
+                localStorage.setItem("vs_v3_lastdate", todayDateString);
+                saveDB();
+            }
+            renderDashboard();
+        }
+
+        function saveDB() {
+            localStorage.setItem("vs_v3_db", JSON.stringify(dbCustomers));
+        }
+
+        function switchNav(viewId, element) {
+            document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+            
+            document.getElementById(viewId).classList.add('active');
+            element.classList.add('active');
+            
+            if (viewId === 'view-dashboard') renderDashboard();
+            if (viewId === 'view-given') renderGivenToday();
+        }
+
+        // --- 3. CALCULATIONS ---
+        function calcEMI() {
+            let p = parseFloat(document.getElementById('cPrincipal').value) || 0;
+            let i = parseFloat(document.getElementById('cInterest').value) || 0;
+            let d = parseInt(document.getElementById('cDuesCount').value) || 1;
+            
+            let total = p + i;
+            let emi = total / d;
+
+            document.getElementById('prevP').innerText = `₹ ${p}`;
+            document.getElementById('prevI').innerText = `₹ ${i}`;
+            document.getElementById('prevTotal').innerText = `₹ ${total}`;
+            document.getElementById('prevEmi').innerText = `₹ ${Math.round(emi)}`; // Round for easy UI
+        }
+
+        function saveEntry(e) {
+            e.preventDefault();
+            let p = parseFloat(document.getElementById('cPrincipal').value);
+            let i = parseFloat(document.getElementById('cInterest').value);
+            let d = parseInt(document.getElementById('cDuesCount').value);
+            let total = p + i;
+            let emi = Math.round(total / d);
+            
+            let newCust = {
+                id: Date.now(),
+                name: document.getElementById('cName').value,
+                principal: p,
+                interest: i,
+                type: document.getElementById('cType').value,
+                totalAmount: total,
+                emi: emi,
+                totalDues: d,
+                duesPaid: 0,
+                statusToday: 'unpaid',
+                dateGiven: todayDateString // Stores today's date
+            };
+
+            dbCustomers.push(newCust);
+            saveDB();
+            document.getElementById('entryForm').reset();
+            calcEMI();
+            
+            alert("கணக்கு வெற்றிகரமாக சேமிக்கப்பட்டது!");
+            // Auto navigate to "Given Today" to show proof
+            document.querySelectorAll('.nav-item')[1].click(); 
+        }
+
+        // --- 4. RENDER DASHBOARD (COLLECTIONS) ---
+        function renderDashboard() {
+            let targetAmt = 0, collectedAmt = 0, pendingAmt = 0;
+            let totalPpl = 0, paidPpl = 0, pendingPpl = 0;
+            let listHTML = "";
+
+            dbCustomers.forEach((c, index) => {
+                // If loan is completed, don't show in today's collection
+                if(c.duesPaid >= c.totalDues) return; 
+
+                // Note: In a real app, Weekly/Monthly filter goes here. 
+                // For this, we show all active loans so the financier can mark them.
+                totalPpl++;
+                targetAmt += c.emi;
+
+                if (c.statusToday === 'paid') {
+                    collectedAmt += c.emi;
+                    paidPpl++;
+                } else if (c.statusToday === 'pending') {
+                    pendingAmt += c.emi;
+                    pendingPpl++;
+                }
+
+                // UI Rendering
+                let isPaid = c.statusToday === 'paid';
+                let isPending = c.statusToday === 'pending';
+                
+                listHTML += `
+                    <div class="list-card" style="${isPending ? 'border-left: 4px solid var(--danger);' : ''}">
+                        <div class="lc-header">
+                            <div>
+                                <div class="lc-title">${c.name}</div>
+                                <div class="lc-subtitle"><span class="lc-type">${c.type}</span> • Due ${c.duesPaid}/${c.totalDues}</div>
+                            </div>
+                            <div class="lc-amount" style="${isPending ? 'color: var(--danger);' : ''}">₹${c.emi}</div>
+                        </div>
+                        
+                        ${isPaid ? 
+                            `<div class="btn btn-disabled"><i class="fa-solid fa-check-circle"></i> Collected Successfully</div>` 
+                            : 
+                            `<div class="lc-actions">
+                                <button class="btn btn-danger" onclick="markAction(${index}, 'pending')">
+                                    ${isPending ? '<i class="fa-solid fa-xmark"></i> Still Pending' : 'Mark Pending'}
+                                </button>
+                                <button class="btn btn-success" onclick="markAction(${index}, 'paid')">
+                                    <i class="fa-solid fa-hand-holding-dollar"></i> Collect
+                                </button>
+                            </div>`
+                        }
+                    </div>
+                `;
+            });
+
+            // Update DOM metrics
+            document.getElementById('dash-target').innerText = `₹ ${targetAmt.toLocaleString()}`;
+            document.getElementById('dash-collected').innerText = `₹ ${collectedAmt.toLocaleString()}`;
+            document.getElementById('dash-pending').innerText = `₹ ${pendingAmt.toLocaleString()}`;
+            document.getElementById('dash-total-people').innerText = totalPpl;
+            document.getElementById('dash-paid-count').innerText = `${paidPpl} Paid`;
+            document.getElementById('dash-pending-count').innerText = `${pendingPpl} Pending`;
+
+            document.getElementById('today-list').innerHTML = listHTML || `
+                <div class="empty-state">
+                    <i class="fa-solid fa-mug-hot"></i><br>
+                    இன்றைய பட்டியலில் வசூலிக்க கணக்குகள் எதுவும் இல்லை.
+                </div>`;
+        }
+
+        // --- 5. RENDER DISBURSEMENTS (GIVEN TODAY) ---
+        function renderGivenToday() {
+            let givenTodayAmt = 0;
+            let givenTodayCount = 0;
+            let listHTML = "";
+
+            dbCustomers.forEach(c => {
+                // Filter only loans given TODAY
+                if(c.dateGiven === todayDateString) {
+                    givenTodayAmt += c.principal; // Only calculate Principal given out
+                    givenTodayCount++;
+
+                    listHTML += `
+                        <div class="list-card">
+                            <div class="lc-header" style="margin-bottom:0;">
+                                <div>
+                                    <div class="lc-title">${c.name}</div>
+                                    <div class="lc-subtitle">Type: ${c.type} • Dues: ${c.totalDues}</div>
+                                </div>
+                                <div style="text-align: right;">
+                                    <div class="lc-amount" style="color: var(--success);">₹${c.principal.toLocaleString()}</div>
+                                    <div style="font-size: 11px; color: var(--text-muted); margin-top:2px;">Given (அசல்)</div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+
+            document.getElementById('dash-given-today').innerText = `₹ ${givenTodayAmt.toLocaleString()}`;
+            document.getElementById('dash-given-count').innerText = givenTodayCount;
+
+            document.getElementById('given-list').innerHTML = listHTML || `
+                <div class="empty-state">
+                    <i class="fa-solid fa-folder-open"></i><br>
+                    இன்று புதிதாக யாருக்கும் பணம் வழங்கப்படவில்லை.
+                </div>`;
+        }
+
+        // --- 6. ACTION HANDLER (COLLECT/PENDING) ---
+        window.markAction = function(index, action) {
+            let c = dbCustomers[index];
+            
+            if (action === 'paid') {
+                c.statusToday = 'paid';
+                c.duesPaid += 1;
+            } else if (action === 'pending') {
+                c.statusToday = 'pending';
+            }
+            
+            saveDB();
+            renderDashboard(); // Auto refresh the list
+        };
+    </script>
+</body>
+</html>
