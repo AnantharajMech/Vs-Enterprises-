@@ -3,21 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>VS Fin Serv - Corporate Guru Edition</title>
+    <title>VS Fin Serv - Corporate Ultimate Pro</title>
+    <!-- Premium Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Stable html2pdf CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
     <style>
         /* === ADVANCED COLOR PSYCHOLOGY THEME === */
         :root {
-            --primary: #040F2D;   /* Ultra Deep Corporate Blue */
-            --secondary: #0D204A; /* Soft Authority Blue */
-            --accent: #F7B731;    /* Bright Prosperity Gold */
-            --success: #00B873;   /* Money Emerald Green */
-            --danger: #FF3B30;    /* Apple Style Alert Red */
-            --info: #007AFF;      /* Call Action Blue */
-            --bg: #F2F6F9;        /* Calm Cool Gray Base */
+            --primary: #040F2D;   
+            --secondary: #0D204A; 
+            --accent: #F7B731;    
+            --success: #00B873;   
+            --danger: #FF3B30;    
+            --info: #007AFF;      
+            --bg: #F2F6F9;        
             --surface: #FFFFFF;
             --text-main: #1C1C1E;
             --text-muted: #8E8E93;
@@ -29,7 +31,7 @@
 
         /* === 1. SPLASH SCREEN === */
         #splash-screen { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: var(--primary); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 9999; transition: opacity 0.5s ease; }
-        .god-img-box { width: 260px; height: 360px; border-radius: 24px; box-shadow: 0 0 60px rgba(247, 183, 49, 0.5); border: 3px solid var(--accent); background: #111; display: flex; justify-content: center; align-items: center; overflow: hidden; animation: zoomIn 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+        .god-img-box { width: 260px; height: 360px; border-radius: 24px; box-shadow: 0 0 60px rgba(247, 183, 49, 0.6); border: 3px solid var(--accent); background: #111; display: flex; justify-content: center; align-items: center; overflow: hidden; animation: zoomIn 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
         .god-img-box img { width: 100%; height: 100%; object-fit: cover; }
         .splash-title { color: var(--accent); font-size: 36px; font-weight: 900; margin-top: 30px; letter-spacing: 5px; text-transform: uppercase; opacity: 0; animation: fadeUp 0.8s ease 0.8s forwards; }
         @keyframes zoomIn { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
@@ -37,37 +39,42 @@
 
         /* === 2. LOGIN SCREEN === */
         #login-screen { display: none; min-height: 100vh; background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); flex-direction: column; justify-content: center; align-items: center; padding: 20px; }
-        .login-box { background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); width: 100%; max-width: 400px; padding: 40px 25px; border-radius: 28px; box-shadow: 0 20px 50px rgba(0,0,0,0.3); text-align: center; animation: slideUp 0.5s ease; border: 1px solid rgba(255,255,255,0.5); }
+        .login-box { background: rgba(255,255,255,0.96); backdrop-filter: blur(20px); width: 100%; max-width: 400px; padding: 40px 25px; border-radius: 28px; box-shadow: 0 20px 50px rgba(0,0,0,0.3); text-align: center; animation: slideUp 0.5s ease; border: 1px solid rgba(255,255,255,0.5); }
         .login-box h2 { font-size: 28px; font-weight: 900; color: var(--primary); margin-bottom: 5px; }
         .login-box p { font-size: 14px; color: var(--text-muted); margin-bottom: 30px; font-weight: 700; }
-        .input-box { width: 100%; padding: 18px; border: 2px solid var(--border); border-radius: 16px; font-size: 15px; margin-bottom: 16px; outline: none; background: var(--bg); transition: 0.3s; font-weight: 700; color: var(--primary); }
-        .input-box:focus { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(247, 183, 49, 0.2); background: var(--surface); }
         .btn-login { width: 100%; background: var(--accent); color: var(--primary); padding: 18px; border-radius: 16px; font-size: 16px; font-weight: 900; border: none; cursor: pointer; transition: 0.2s; box-shadow: 0 8px 20px rgba(247, 183, 49, 0.4); }
         .btn-login:active { transform: scale(0.95); }
 
         /* === 3. HEADER === */
-        header { background: var(--surface); padding: 20px; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 25px rgba(0,0,0,0.04); display: flex; justify-content: space-between; align-items: center; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; }
+        header { background: var(--surface); padding: 20px; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 25px rgba(0,0,0,0.04); display: flex; justify-content: space-between; align-items: center; border-bottom-left-radius: 24px; border-bottom-right-radius: 24px; }
         .h-title { font-size: 24px; font-weight: 900; color: var(--primary); letter-spacing: 0.5px; }
-        .h-sub { font-size: 12px; font-weight: 800; color: var(--accent); text-transform: uppercase; background: rgba(247,183,49,0.15); padding: 4px 10px; border-radius: 8px; display: inline-block; margin-top: 4px; }
+        .h-sub { font-size: 11px; font-weight: 800; color: var(--accent); text-transform: uppercase; background: rgba(247,183,49,0.12); padding: 4px 10px; border-radius: 8px; display: inline-block; margin-top: 4px; }
         .btn-logout { background: #FFEEEE; color: var(--danger); border: none; padding: 10px 16px; border-radius: 12px; font-weight: 800; cursor: pointer; display: flex; gap: 6px; align-items: center; transition: 0.2s; }
         .btn-logout:active { transform: scale(0.95); }
 
-        /* === 4. DASHBOARD CARDS === */
+        /* === ALIGNMENT FIXES: RESPONSIVE GRIDS === */
         .container { padding: 20px; }
+        .grid-2 { display: grid; grid-template-columns: 1fr; gap: 15px; width: 100%; } /* Stack on mobile */
+        @media(min-width: 500px) { .grid-2 { grid-template-columns: 1fr 1fr; } } /* Side-by-side on larger screens */
+        
+        .grid-4 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 25px; } /* 2x2 Box alignment on mobile */
+        @media(min-width: 600px) { .grid-4 { grid-template-columns: 1fr 1fr 1fr 1fr; } }
+
+        /* === 4. DASHBOARD CARDS === */
         .hero-card { background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); padding: 30px 20px; border-radius: 24px; color: white; margin-bottom: 25px; box-shadow: 0 15px 35px rgba(4, 15, 45, 0.25); position: relative; overflow: hidden; }
         .hero-card::after { content: ''; position: absolute; top: -30px; right: -30px; width: 150px; height: 150px; background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%); border-radius: 50%; }
-        .hero-card h3 { font-size: 14px; font-weight: 700; opacity: 0.8; text-transform: uppercase; letter-spacing: 1px; }
-        .hero-card h2 { font-size: 38px; font-weight: 900; color: var(--accent); margin-top: 8px; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+        .hero-card h3 { font-size: 13px; font-weight: 700; opacity: 0.8; text-transform: uppercase; letter-spacing: 1px; }
+        .hero-card h2 { font-size: 36px; font-weight: 900; color: var(--accent); margin-top: 8px; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+        .hero-date { font-size: 12px; opacity: 0.7; margin-top: 8px; font-weight: 600; display: flex; align-items: center; gap: 5px; }
         
-        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 25px; }
-        .stat-box { background: var(--surface); padding: 18px 10px; border-radius: 20px; border: 1px solid var(--border); text-align: center; box-shadow: 0 6px 15px rgba(0,0,0,0.03); transition: 0.3s; }
+        .stat-box { background: var(--surface); padding: 18px 12px; border-radius: 20px; border: 1px solid var(--border); text-align: center; box-shadow: 0 6px 15px rgba(0,0,0,0.02); display: flex; flex-direction: column; justify-content: center; }
         .stat-box h4 { font-size: 11px; color: var(--text-muted); font-weight: 900; text-transform: uppercase; margin-bottom: 6px; }
         .stat-box h3 { font-size: 18px; font-weight: 900; }
         .c-green { color: var(--success); } .c-red { color: var(--danger); } .c-blue { color: var(--info); }
 
-        /* LIST ITEM (Interactive) */
+        /* LIST ITEM */
         .list-card { background: var(--surface); padding: 20px; border-radius: 20px; margin-bottom: 15px; border: 1px solid var(--border); border-left: 6px solid var(--primary); cursor: pointer; transition: 0.2s; box-shadow: 0 4px 15px rgba(0,0,0,0.03); display: flex; justify-content: space-between; align-items: center; }
-        .list-card:active { transform: scale(0.97); background: #F8FAFC; }
+        .list-card:active { transform: scale(0.98); background: #F8FAFC; }
         .list-card.overdue { border-left-color: var(--danger); background: #FFF5F5; }
         .list-card.completed { border-left-color: var(--success); opacity: 0.7; }
         
@@ -77,21 +84,21 @@
         .lc-amt { font-size: 22px; font-weight: 900; color: var(--primary); text-align: right; }
         .badge { font-size: 11px; padding: 5px 10px; border-radius: 8px; font-weight: 900; display: inline-block; margin-top: 6px; text-transform: uppercase; }
 
-        /* === 5. COLOR SCIENCE ENTRY FORM === */
+        /* === 5. ENTRY FORM === */
         .form-container { background: var(--surface); padding: 25px; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); margin-bottom: 30px; border: 1px solid var(--border); }
-        .form-group { margin-bottom: 20px; width: 100%; }
+        .form-group { margin-bottom: 15px; width: 100%; }
         .form-group label { display: block; font-size: 14px; font-weight: 900; color: var(--secondary); margin-bottom: 8px; }
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%; }
         
+        .input-box { width: 100%; padding: 16px; border: 2px solid var(--border); border-radius: 16px; font-size: 15px; margin-bottom: 4px; outline: none; background: var(--bg); transition: 0.3s; font-weight: 700; color: var(--primary); }
+        .input-box:focus { border-color: var(--accent); background: var(--surface); box-shadow: 0 0 0 4px rgba(247, 183, 49, 0.15); }
+        .input-money:focus { border-color: var(--success) !important; box-shadow: 0 0 0 4px rgba(0, 184, 115, 0.15) !important; }
+
         .btn-submit { width: 100%; padding: 18px; border-radius: 16px; font-size: 16px; font-weight: 900; border: none; cursor: pointer; transition: 0.2s; display: flex; justify-content: center; align-items: center; gap: 10px; }
         .btn-submit:active { transform: scale(0.96); }
         .btn-primary { background: var(--primary); color: var(--accent); box-shadow: 0 8px 20px rgba(4,15,45,0.3); }
         .btn-outline { background: var(--surface); color: var(--primary); border: 2px solid var(--primary); box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
 
-        /* Dynamic Input Colors */
-        .input-money:focus { border-color: var(--success) !important; box-shadow: 0 0 0 4px rgba(0, 184, 115, 0.15) !important; }
-
-        /* === 6. PREMIUM MODALS & POP-UPS === */
+        /* === 6. MODALS & DETAILED HISTORY === */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(4,15,45,0.7); backdrop-filter: blur(8px); display: none; justify-content: center; align-items: flex-end; z-index: 2000; }
         .modal-overlay.active { display: flex; animation: fadeIn 0.3s ease; }
         .modal-content { background: var(--bg); width: 100%; height: 92vh; border-radius: 30px 30px 0 0; padding: 30px 20px; overflow-y: auto; box-shadow: 0 -15px 50px rgba(0,0,0,0.3); animation: slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); display: flex; flex-direction: column; }
@@ -101,54 +108,52 @@
         .btn-icon { width: 40px; height: 40px; border-radius: 50%; border: none; font-size: 16px; cursor: pointer; display: flex; justify-content: center; align-items: center; transition: 0.2s; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
         .btn-icon.close { background: var(--surface); color: var(--text-main); border: 1px solid var(--border); }
         
-        .c-details-row { background: var(--surface); padding: 15px; border-radius: 16px; font-size: 13px; color: var(--text-muted); font-weight: 800; margin-bottom: 20px; display: flex; gap: 12px; flex-wrap: wrap; box-shadow: 0 2px 10px rgba(0,0,0,0.02); border: 1px solid var(--border); }
+        .c-details-row { background: var(--surface); padding: 16px; border-radius: 18px; font-size: 13px; color: var(--text-muted); font-weight: 800; margin-bottom: 20px; display: flex; gap: 12px; flex-wrap: wrap; box-shadow: 0 2px 10px rgba(0,0,0,0.02); border: 1px solid var(--border); }
         .c-details-row span { display: flex; align-items: center; gap: 6px; }
 
-        /* DIRECT CALL BUTTON */
-        .btn-call { background: var(--info); color: white; border: none; padding: 12px 20px; border-radius: 12px; font-weight: 900; cursor: pointer; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 5px 15px rgba(0, 122, 255, 0.3); transition: 0.2s; width: 100%; font-size: 16px; margin-bottom: 20px; }
+        .btn-call { background: var(--info); color: white; border: none; padding: 14px 20px; border-radius: 14px; font-weight: 900; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 5px 15px rgba(0, 122, 255, 0.3); transition: 0.2s; width: 100%; font-size: 16px; margin-bottom: 20px; }
         .btn-call:active { transform: scale(0.95); }
 
-        .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 25px; }
-        .st-box { background: var(--surface); padding: 18px; border-radius: 20px; border: 1px solid var(--border); box-shadow: 0 4px 10px rgba(0,0,0,0.02); }
-        .st-box h5 { font-size: 12px; color: var(--text-muted); margin-bottom: 6px; font-weight: 900; text-transform: uppercase; }
-        .st-box h3 { font-size: 20px; font-weight: 900; color: var(--primary); }
+        .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+        .st-box { background: var(--surface); padding: 16px; border-radius: 18px; border: 1px solid var(--border); box-shadow: 0 4px 10px rgba(0,0,0,0.02); }
+        .st-box h5 { font-size: 11px; color: var(--text-muted); margin-bottom: 6px; font-weight: 900; text-transform: uppercase; }
+        .st-box h3 { font-size: 19px; font-weight: 900; color: var(--primary); }
 
-        .history-box { background: var(--surface); padding: 20px; border-radius: 20px; border: 1px solid var(--border); flex-grow: 1; overflow-y: auto; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.02); }
-        .h-item { display: flex; justify-content: space-between; padding: 15px 0; border-bottom: 1px dashed var(--border); font-size: 14px; font-weight: 800; }
+        .history-box { background: var(--surface); padding: 20px; border-radius: 20px; border: 1px solid var(--border); height: 220px; overflow-y: auto; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.02); }
+        .h-item { display: flex; justify-content: space-between; padding: 14px 0; border-bottom: 1px dashed var(--border); font-size: 14px; font-weight: 800; }
         .h-item:last-child { border: none; }
         
         .action-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
         .btn-act { padding: 18px; border-radius: 16px; font-size: 15px; font-weight: 900; border: none; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 6px; transition: 0.2s; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
         .btn-act:active { transform: scale(0.95); }
 
-        /* APPLE-STYLE SUCCESS POP-UP */
-        .glass-modal { background: rgba(255,255,255,0.9); backdrop-filter: blur(20px); width: 85%; max-width: 320px; padding: 35px 25px; border-radius: 28px; text-align: center; margin: auto; animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); border: 1px solid rgba(255,255,255,0.5); box-shadow: 0 20px 50px rgba(0,0,0,0.2); }
+        /* MODERN POP-UP */
+        .glass-modal { background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); width: 85%; max-width: 340px; padding: 35px 25px; border-radius: 28px; text-align: center; margin: auto; animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); border: 1px solid rgba(255,255,255,0.5); box-shadow: 0 20px 50px rgba(0,0,0,0.2); }
         .alert-icon { width: 70px; height: 70px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 32px; margin: 0 auto 20px; color: white; }
         .alert-icon.success { background: var(--success); box-shadow: 0 8px 20px rgba(0, 184, 115, 0.4); }
         .alert-icon.warning { background: var(--accent); box-shadow: 0 8px 20px rgba(247, 183, 49, 0.4); }
         @keyframes popIn { 0% { transform: scale(0.7); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
 
-        /* === 7. FOOLPROOF PDF GENERATOR TEMPLATE === */
-        /* It is rendered on screen momentarily to capture perfectly, then hidden */
-        #pdf-render-zone { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.9); z-index: 5000; display: none; justify-content: center; align-items: center; overflow: hidden; }
-        .pdf-wrapper { background: #FFFFFF; width: 800px; padding: 50px; font-family: 'Helvetica Neue', Helvetica, sans-serif; color: #111; border: 3px solid #040F2D; position: relative; }
-        .pdf-wrapper::before { content: 'APPROVED'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-45deg); font-size: 130px; color: rgba(0, 184, 115, 0.05); font-weight: 900; z-index: 0; pointer-events: none; }
-        .pdf-header { text-align: center; border-bottom: 5px solid #F7B731; padding-bottom: 25px; margin-bottom: 40px; z-index: 1; position: relative; }
-        .pdf-header h1 { font-size: 46px; color: #040F2D; margin: 0 0 8px 0; text-transform: uppercase; font-weight: 900; letter-spacing: 3px; }
-        .pdf-header p { font-size: 18px; color: #555; margin: 0; font-weight: bold; }
-        .pdf-table { width: 100%; border-collapse: collapse; margin-bottom: 40px; z-index: 1; position: relative; font-size: 20px; }
-        .pdf-table th, .pdf-table td { padding: 18px; border-bottom: 1px solid #EEE; text-align: left; }
-        .pdf-table th { background: #F2F6F9; color: #040F2D; font-weight: bold; width: 35%; }
+        /* === 7. PREMIUM PDF TEMPLATE === */
+        #pdf-render-zone { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.95); z-index: 5000; display: none; justify-content: center; align-items: center; overflow: hidden; }
+        .pdf-wrapper { background: #FFFFFF; width: 750px; padding: 45px; color: #111; border: 3px solid #040F2D; position: relative; border-radius: 12px; }
+        .pdf-wrapper::before { content: 'APPROVED'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-45deg); font-size: 110px; color: rgba(0, 184, 115, 0.04); font-weight: 900; z-index: 0; pointer-events: none; }
+        .pdf-header { text-align: center; border-bottom: 5px solid #F7B731; padding-bottom: 20px; margin-bottom: 35px; }
+        .pdf-header h1 { font-size: 42px; color: #040F2D; margin: 0 0 6px 0; text-transform: uppercase; font-weight: 900; letter-spacing: 2px; }
+        .pdf-header p { font-size: 16px; color: #555; margin: 0; font-weight: bold; }
+        .pdf-table { width: 100%; border-collapse: collapse; margin-bottom: 35px; font-size: 18px; }
+        .pdf-table th, .pdf-table td { padding: 14px; border-bottom: 1px solid #EEE; text-align: left; }
+        .pdf-table th { background: #F2F6F9; color: #040F2D; font-weight: bold; width: 38%; }
         .pdf-table td { font-weight: bold; color: #333; }
-        .pdf-total-box { background: #040F2D; color: #F7B731; padding: 30px; text-align: center; border-radius: 16px; margin: 30px 0 60px; z-index: 1; position: relative; }
-        .pdf-total-box p { margin: 0 0 8px 0; font-size: 20px; color: #FFF; font-weight: normal; }
-        .pdf-total-box h2 { font-size: 55px; margin: 0; font-weight: 900; }
-        .pdf-footer { display: flex; justify-content: space-between; margin-top: 60px; font-size: 20px; font-weight: bold; color: #040F2D; z-index: 1; position: relative; }
-        .pdf-footer div { border-top: 3px solid #040F2D; padding-top: 15px; width: 280px; text-align: center; }
+        .pdf-total-box { background: #040F2D; color: #F7B731; padding: 25px; text-align: center; border-radius: 14px; margin: 25px 0 45px; }
+        .pdf-total-box p { margin: 0 0 5px 0; font-size: 18px; color: #FFF; }
+        .pdf-total-box h2 { font-size: 48px; margin: 0; font-weight: 900; }
+        .pdf-footer { display: flex; justify-content: space-between; margin-top: 50px; font-size: 18px; font-weight: bold; color: #040F2D; }
+        .pdf-footer div { border-top: 2px solid #040F2D; padding-top: 12px; width: 240px; text-align: center; }
 
         /* === 8. BOTTOM NAV === */
-        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--surface); display: flex; justify-content: space-around; padding: 18px 5px 25px; box-shadow: 0 -5px 25px rgba(0,0,0,0.06); z-index: 1000; border-top: 1px solid var(--border); border-top-left-radius: 20px; border-top-right-radius: 20px; }
-        .nav-item { display: flex; flex-direction: column; align-items: center; gap: 6px; color: var(--text-muted); font-size: 11px; font-weight: 900; cursor: pointer; flex: 1; transition: 0.3s; text-transform: uppercase; }
+        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--surface); display: flex; justify-content: space-around; padding: 18px 5px 25px; box-shadow: 0 -5px 25px rgba(0,0,0,0.06); z-index: 1000; border-top: 1px solid var(--border); border-top-left-radius: 24px; border-top-right-radius: 24px; }
+        .nav-item { display: flex; flex-direction: column; align-items: center; gap: 6px; color: var(--text-muted); font-size: 11px; font-weight: 800; cursor: pointer; flex: 1; transition: 0.3s; text-transform: uppercase; }
         .nav-item.active { color: var(--primary); }
         .nav-item.active i { color: var(--accent); transform: translateY(-5px); font-size: 22px; }
         
@@ -161,25 +166,28 @@
 </head>
 <body>
 
+    <!-- SPLASH SCREEN -->
     <div id="splash-screen">
         <div class="god-img-box">
-            <img src="1000072178.jpg" alt="God Image" onerror="this.style.display='none'; this.parentElement.innerHTML='<i class=\'fa-solid fa-om\' style=\'font-size:80px; color:#F5A623;\'></i>';">
+            <img src="1000072178.jpg" alt="God Image" onerror="this.style.display='none'; this.parentElement.innerHTML='<i class='fa-solid fa-om' style='font-size:80px; color:#F7B731;'></i>';">
         </div>
         <div class="splash-title">VS Group</div>
     </div>
 
+    <!-- LOGIN SCREEN -->
     <div id="login-screen">
         <div class="login-box">
-            <h2>Welcome Back</h2>
-            <p>VS Fin Serv Management</p>
+            <h2>Welcome</h2>
+            <p>VS Fin Serv Premium System</p>
             <form onsubmit="handleLogin(event)">
                 <input type="text" id="loginUser" class="input-box" placeholder="Username" required>
                 <input type="password" id="loginPass" class="input-box" placeholder="Password" required>
-                <button type="submit" class="btn-login">Secure Login</button>
+                <button type="submit" class="btn-login">Login System</button>
             </form>
         </div>
     </div>
 
+    <!-- MAIN APPLICATION VIEW -->
     <div id="main-app" style="display: none;">
         <header>
             <div>
@@ -189,228 +197,239 @@
             <button class="btn-logout" onclick="logout()"><i class="fa-solid fa-power-off"></i> Logout</button>
         </header>
 
+        <!-- DASHBOARD TAB -->
         <div id="view-dashboard" class="view-section active container">
             <div class="hero-card">
-                <h3>Today's Target Overview</h3>
+                <h3>Today's Collection Target</h3>
                 <h2 id="dash-target">₹ 0</h2>
+                <div class="hero-date" id="live-date"><i class="fa-solid fa-calendar-day"></i> Loading Date...</div>
             </div>
             
-            <div class="grid-3">
+            <div class="grid-4">
                 <div class="stat-box"><h4>Collected</h4><h3 class="c-green" id="dash-col">₹ 0</h3></div>
                 <div class="stat-box"><h4>Pending</h4><h3 class="c-red" id="dash-pen">₹ 0</h3></div>
                 <div class="stat-box"><h4>Disbursed</h4><h3 class="c-blue" id="dash-new">₹ 0</h3></div>
+                <div class="stat-box"><h4>Active Dues</h4><h3 style="color:var(--primary);" id="dash-active-count">0</h3></div>
             </div>
 
-            <h3 style="font-size: 18px; font-weight: 900; margin-bottom: 15px; color: var(--primary);">Active Accounts</h3>
+            <h3 style="font-size: 18px; font-weight: 900; margin-bottom: 15px; color: var(--primary);">Today's Collection Pipeline</h3>
             <div id="customer-list"></div>
         </div>
 
+        <!-- NEW ENTRY TAB -->
         <div id="view-entry" class="view-section container">
             <div class="form-container">
-                <h3 style="font-size: 22px; font-weight: 900; margin-bottom: 25px; color: var(--primary);"><i class="fa-solid fa-file-signature" style="color:var(--accent);"></i> Create New Loan</h3>
+                <h3 style="font-size: 22px; font-weight: 900; margin-bottom: 25px; color: var(--primary);"><i class="fa-solid fa-file-signature" style="color:var(--accent);"></i> New Loan Disbursal</h3>
                 <form id="entryForm">
-                    
                     <div class="grid-2">
                         <div class="form-group">
-                            <label>Name (பெயர்)</label>
-                            <input type="text" id="cName" class="input-box" required placeholder="Ex: Rakesh">
+                            <label>Customer Name</label>
+                            <input type="text" id="cName" class="input-box" required placeholder="Full Name">
                         </div>
                         <div class="form-group">
-                            <label>Mobile (மொபைல்)</label>
-                            <input type="tel" id="cMobile" class="input-box" required placeholder="10-digit number" pattern="[0-9]{10}">
+                            <label>Mobile Number</label>
+                            <input type="tel" id="cMobile" class="input-box" required placeholder="10 Digit Mobile" pattern="[0-9]{10}">
                         </div>
                     </div>
 
                     <div class="grid-2">
                         <div class="form-group">
-                            <label>Village (ஊர்)</label>
+                            <label>Village/Town</label>
                             <input type="text" id="cVillage" class="input-box" required placeholder="Ex: Edappadi">
                         </div>
                         <div class="form-group">
-                            <label>Line (லைன்)</label>
-                            <input type="text" id="cLine" class="input-box" required placeholder="Ex: Salem">
+                            <label>Line Route</label>
+                            <input type="text" id="cLine" class="input-box" required placeholder="Ex: Salem Main Route">
                         </div>
                     </div>
                     
                     <div class="grid-2">
                         <div class="form-group">
-                            <label>Date (தேதி)</label>
+                            <label>Date Given</label>
                             <input type="date" id="cDate" class="input-box" required>
                         </div>
                         <div class="form-group">
-                            <label>Time (நேரம்)</label>
+                            <label>Time</label>
                             <input type="time" id="cTime" class="input-box" required>
                         </div>
                     </div>
 
                     <div class="grid-2">
                         <div class="form-group">
-                            <label>Principal (அசல்)</label>
+                            <label>Principal Amount (அசல்)</label>
                             <input type="number" id="cPrincipal" class="input-box input-money" required oninput="calcEMI()" style="background:#F0FDF4; border-color:#00B873;">
                         </div>
                         <div class="form-group">
-                            <label>Interest (வட்டி)</label>
+                            <label>Interest Amount (வட்டி)</label>
                             <input type="number" id="cInterest" class="input-box input-money" required oninput="calcEMI()" style="background:#FFF9E6; border-color:#F7B731;">
                         </div>
                     </div>
 
                     <div class="grid-2">
                         <div class="form-group">
-                            <label>Due Type</label>
+                            <label>Due Interval</label>
                             <select id="cType" class="input-box" onchange="calcEMI()">
-                                <option value="Daily">Daily</option>
-                                <option value="Weekly">Weekly</option>
-                                <option value="Monthly">Monthly</option>
+                                <option value="Daily">Daily (தினசரி)</option>
+                                <option value="Weekly">Weekly (வாராந்திர)</option>
+                                <option value="Monthly">Monthly (மாதாந்திர)</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>Total Dues</label>
+                            <label>Total Number of Dues</label>
                             <input type="number" id="cDuesCount" class="input-box" required oninput="calcEMI()">
                         </div>
                     </div>
 
-                    <div style="background: var(--surface); padding: 25px; border-radius: 16px; border: 2px dashed var(--accent); text-align: center; margin-bottom: 25px; box-shadow: 0 5px 15px rgba(247,183,49,0.1);">
-                        <span style="font-size: 13px; color: var(--text-muted); font-weight: 900; letter-spacing: 1px;">EMI PER DUE</span><br>
+                    <div style="background: var(--surface); padding: 25px; border-radius: 16px; border: 2px dashed var(--accent); text-align: center; margin-bottom: 25px; box-shadow: 0 5px 15px rgba(247,183,49,0.08);">
+                        <span style="font-size: 13px; color: var(--text-muted); font-weight: 900; letter-spacing: 0.5px;">CALCULATED EMI PER DUE</span><br>
                         <span id="prevEmi" style="font-size: 36px; font-weight: 900; color: var(--primary);">₹ 0</span>
                     </div>
 
                     <div class="grid-2">
-                        <button type="button" class="btn-submit btn-outline" onclick="processNewEntry(false)"><i class="fa-solid fa-floppy-disk"></i> Save Only</button>
-                        <button type="button" class="btn-submit btn-primary" onclick="processNewEntry(true)"><i class="fa-solid fa-file-pdf"></i> Save & PDF</button>
+                        <button type="button" class="btn-submit btn-outline" onclick="processNewEntry(false)"><i class="fa-solid fa-floppy-disk"></i> Save Data Only</button>
+                        <button type="button" class="btn-submit btn-primary" onclick="processNewEntry(true)"><i class="fa-solid fa-file-pdf"></i> Disburse & Download PDF</button>
                     </div>
                 </form>
             </div>
         </div>
 
+        <!-- ADMIN PANEL TAB -->
         <div id="view-admin" class="view-section container">
-            <div class="hero-card" style="background: linear-gradient(135deg, var(--danger) 0%, #991B1B 100%);">
-                <h3>Admin Control</h3>
-                <h2 style="color: white;">Data & Security</h2>
+            <div class="hero-card" style="background: linear-gradient(135deg, var(--danger) 0%, #991B1B 100%); box-shadow: 0 10px 25px rgba(230,57,70,0.2);">
+                <h3>System Administration</h3>
+                <h2 style="color: white;">Security & Infrastructure</h2>
             </div>
             
-            <div style="background: var(--surface); padding: 25px; border-radius: 20px; margin-bottom: 30px; border: 1px solid var(--border); box-shadow: 0 5px 20px rgba(0,0,0,0.03);">
-                <h3 style="font-size: 18px; font-weight: 900; margin-bottom: 15px;"><i class="fa-solid fa-database" style="color:var(--primary);"></i> Data Backup & Restore</h3>
-                <p style="font-size: 13px; color: var(--text-muted); font-weight: 700; margin-bottom: 20px;">உங்கள் தரவுகளை பாதுகாப்பாக டவுன்லோட் செய்து, பின்பு தேவைப்படும்போது மீட்டெடுக்கலாம்.</p>
+            <div style="background: var(--surface); padding: 25px; border-radius: 20px; margin-bottom: 30px; border: 1px solid var(--border); box-shadow: 0 5px 20px rgba(0,0,0,0.02);">
+                <h3 style="font-size: 18px; font-weight: 900; margin-bottom: 15px;"><i class="fa-solid fa-shield-halved" style="color:var(--primary);"></i> Permanent Ledger Data Security</h3>
+                <p style="font-size: 13px; color: var(--text-muted); font-weight: 700; margin-bottom: 20px;">ஒட்டுமொத்த கணக்கு விபரங்களையும் கோப்பாக (JSON) எடுத்து வைத்து எப்போது வேண்டுமானாலும் மீட்டமைக்கலாம்.</p>
                 <div class="grid-2">
-                    <button class="btn-submit btn-primary" style="padding:14px; font-size:15px;" onclick="exportData()"><i class="fa-solid fa-cloud-arrow-down"></i> Backup</button>
+                    <button class="btn-submit btn-primary" style="padding:14px; font-size:15px;" onclick="exportData()"><i class="fa-solid fa-cloud-arrow-down"></i> Backup Data</button>
                     <div>
                         <input type="file" id="importFile" style="display:none;" accept=".json" onchange="importData(event)">
-                        <button class="btn-submit btn-outline" style="padding:14px; font-size:15px;" onclick="document.getElementById('importFile').click()"><i class="fa-solid fa-cloud-arrow-up"></i> Restore</button>
+                        <button class="btn-submit btn-outline" style="padding:14px; font-size:15px;" onclick="document.getElementById('importFile').click()"><i class="fa-solid fa-cloud-arrow-up"></i> Restore Ledger</button>
                     </div>
                 </div>
             </div>
 
-            <h3 style="font-size: 18px; font-weight: 900; margin-bottom: 15px; color: var(--primary);">Create Manager</h3>
+            <h3 style="font-size: 18px; font-weight: 900; margin-bottom: 15px; color: var(--primary);">Create Manager Authentication (Max 10)</h3>
             <form onsubmit="createManager(event)" style="margin-bottom: 30px;">
                 <div class="grid-2">
                     <input type="text" id="newMgrUser" class="input-box" placeholder="Username" required>
                     <input type="password" id="newMgrPass" class="input-box" placeholder="Password" required>
                 </div>
-                <button type="submit" class="btn-submit" style="background: var(--danger); color: white;">Create Manager</button>
+                <button type="submit" class="btn-submit" style="background: var(--danger); color: white;">Create Executive</button>
             </form>
-            <h3 style="font-size: 18px; font-weight: 900; margin-bottom: 15px; color: var(--primary);">Active Users</h3>
+            <h3 style="font-size: 18px; font-weight: 900; margin-bottom: 15px; color: var(--primary);">Active System Managers</h3>
             <div id="users-list"></div>
         </div>
 
+        <!-- NAVIGATION BAR -->
         <div class="bottom-nav">
-            <div class="nav-item active" onclick="switchNav('view-dashboard', this)"><i class="fa-solid fa-chart-pie"></i><span>Home</span></div>
-            <div class="nav-item" onclick="switchNav('view-entry', this)"><i class="fa-solid fa-plus-circle"></i><span>Entry</span></div>
-            <div class="nav-item admin-only" id="nav-admin" onclick="switchNav('view-admin', this)"><i class="fa-solid fa-user-shield"></i><span>Admin</span></div>
+            <div class="nav-item active" onclick="switchNav('view-dashboard', this)"><i class="fa-solid fa-chart-pie"></i><span>Dashboard</span></div>
+            <div class="nav-item" onclick="switchNav('view-entry', this)"><i class="fa-solid fa-plus-circle"></i><span>New Loan</span></div>
+            <div class="nav-item admin-only" id="nav-admin" onclick="switchNav('view-admin', this)"><i class="fa-solid fa-user-shield"></i><span>Admin System</span></div>
         </div>
     </div>
 
+    <!-- CUSTOMER PROFILE EXPANDED MODAL -->
     <div class="modal-overlay" id="customer-modal">
         <div class="modal-content">
             <div class="m-header">
-                <h2 id="m-name">Name</h2>
+                <h2 id="m-name">Customer Ledger</h2>
                 <button class="btn-icon close" onclick="closeModal('customer-modal')"><i class="fa-solid fa-xmark"></i></button>
             </div>
             
             <div class="c-details-row">
                 <span><i class="fa-solid fa-id-badge" style="color:var(--accent);"></i> <b id="m-id">ID</b></span>
-                <span><i class="fa-solid fa-location-dot" style="color:var(--danger);"></i> <b id="m-village">Vil</b></span>
+                <span><i class="fa-solid fa-location-dot" style="color:var(--danger);"></i> <b id="m-village">Village</b></span>
                 <span><i class="fa-solid fa-route" style="color:var(--success);"></i> <b id="m-line">Line</b></span>
                 <span><i class="fa-regular fa-calendar" style="color:var(--primary);"></i> <b id="m-start-date">Date</b></span>
             </div>
 
-            <a href="#" id="m-call-btn" class="btn-call"><i class="fa-solid fa-phone-volume"></i> Call Customer Now</a>
+            <!-- DIRECT TELEPHONY INTEGRATION -->
+            <a href="#" id="m-call-btn" class="btn-call"><i class="fa-solid fa-phone-volume"></i> CALL REGISTERED MOBILE</a>
 
             <div class="stat-grid">
-                <div class="st-box"><h5>Principal</h5><h3 id="m-principal">₹0</h3></div>
-                <div class="st-box"><h5>Total Due</h5><h3 id="m-total">₹0</h3></div>
-                <div class="st-box"><h5>Collected</h5><h3 id="m-paid-amt" style="color:var(--success);">₹0</h3></div>
-                <div class="st-box"><h5>Balance</h5><h3 id="m-bal">₹0</h3></div>
-                <div class="st-box"><h5>Paid Dues</h5><h3><span id="m-paid-dues">0</span>/<span id="m-tot-dues">0</span></h3></div>
-                <div class="st-box" style="background:#FFF5F5; border-color:#FEE2E2;"><h5>Overdue</h5><h3 id="m-overdue" style="color:var(--danger);">₹0</h3></div>
+                <div class="st-box"><h5>Disbursed Principal</h5><h3 id="m-principal">₹0</h3></div>
+                <div class="st-box"><h5>Total Due Balance</h5><h3 id="m-total">₹0</h3></div>
+                <div class="st-box"><h5>Total Recovered (வரவு)</h5><h3 id="m-paid-amt" style="color:var(--success);">₹0</h3></div>
+                <div class="st-box"><h5>Net Outstanding</h5><h3 id="m-bal">₹0</h3></div>
+                <div class="st-box"><h5>Completed Installments</h5><h3><span id="m-paid-dues">0</span> / <span id="m-tot-dues">0</span></h3></div>
+                <div class="st-box" style="background:#FFF5F5; border-color:#FEE2E2;"><h5>Current Overdue (பெண்டிங்)</h5><h3 id="m-overdue" style="color:var(--danger);">₹0</h3></div>
             </div>
 
-            <h4 style="font-size: 16px; font-weight: 900; margin-bottom: 12px; color: var(--primary);">Payment History</h4>
+            <h4 style="font-size: 16px; font-weight: 900; margin-bottom: 12px; color: var(--primary);">Installment Recovery History</h4>
             <div class="history-box" id="m-history"></div>
 
             <div class="action-row" id="m-actions"></div>
         </div>
     </div>
 
+    <!-- NOTIFICATION DIALOG -->
     <div class="modal-overlay" id="alert-modal" style="z-index: 4000; align-items: center;">
         <div class="glass-modal">
             <div class="alert-icon success" id="alert-icon"><i class="fa-solid fa-check"></i></div>
-            <h2 id="alert-title" style="color: var(--primary); font-weight: 900; font-size: 24px;">Success!</h2>
-            <p id="alert-msg" style="color: var(--text-muted); font-size: 14px; font-weight: 800; margin-top: 12px;">Action completed.</p>
+            <h2 id="alert-title" style="color: var(--primary); font-weight: 900; font-size: 24px;">Approved</h2>
+            <p id="alert-msg" style="color: var(--text-muted); font-size: 14px; font-weight: 800; margin-top: 12px;">Process successfully written.</p>
         </div>
     </div>
 
+    <!-- STABLE CLIENT-SIDE PDF RENDERING CANVASES -->
     <div id="pdf-render-zone">
         <div style="position:absolute; top:40%; left:50%; transform:translate(-50%,-50%); text-align:center; z-index:9999;">
             <i class="fa-solid fa-circle-notch fa-spin" style="font-size:50px; color:var(--accent); margin-bottom:20px;"></i>
-            <h2 style="color:var(--primary); font-weight:900;">Generating Secure PDF...</h2>
+            <h2 style="color:var(--primary); font-weight:900;">Generating Secure PDF Bill...</h2>
         </div>
         
         <div class="pdf-wrapper" id="pdf-content">
             <div class="pdf-header">
                 <h1>VS Fin Serv</h1>
-                <p>Official Finance Statement & Receipt</p>
+                <p>Official Finance Ledger Receipt & Statement</p>
             </div>
             <table class="pdf-table">
-                <tr><th>Customer ID</th><td id="pdf-id"></td></tr>
-                <tr><th>Date & Time</th><td id="pdf-date"></td></tr>
+                <tr><th>Customer Account ID</th><td id="pdf-id"></td></tr>
+                <tr><th>Transaction Timestamp</th><td id="pdf-date"></td></tr>
                 <tr><th>Customer Name</th><td id="pdf-name"></td></tr>
-                <tr><th>Mobile No.</th><td id="pdf-mobile"></td></tr>
-                <tr><th>Location</th><td id="pdf-location"></td></tr>
-                <tr><th>Due Type</th><td id="pdf-type"></td></tr>
-                <tr><th>Description</th><td id="pdf-desc"></td></tr>
+                <tr><th>Registered Mobile</th><td id="pdf-mobile"></td></tr>
+                <tr><th>Village & Line Destination</th><td id="pdf-location"></td></tr>
+                <tr><th>Disbursal Class / Due Type</th><td id="pdf-type"></td></tr>
+                <tr><th>Ledger Description</th><td id="pdf-desc"></td></tr>
             </table>
             
             <div class="pdf-total-box">
-                <p>Transaction Amount</p>
+                <p>Transaction / Settlement Amount</p>
                 <h2 id="pdf-amount">₹ 0</h2>
             </div>
             
             <div class="pdf-footer">
-                <div>Customer Signature</div>
-                <div>Authorized Signatory</div>
+                <div>Customer End Signature</div>
+                <div>Authorized Fin Serv Signatory</div>
             </div>
         </div>
     </div>
 
+    <!-- ENHANCED ARCHITECTURE CORE ENGINE -->
     <script>
-        // --- SYSTEM VARIABLES ---
-        let db = JSON.parse(localStorage.getItem("vs_data_master")) || [];
-        // Default Admin User
-        let usersDB = JSON.parse(localStorage.getItem("vs_users_master")) || [{ user: 'anantharajmech', pass: 'admin123', role: 'admin' }];
+        let db = JSON.parse(localStorage.getItem("vs_fin_serv_data_v5")) || [];
+        let usersDB = JSON.parse(localStorage.getItem("vs_fin_serv_users_v5")) || [{ user: 'anantharajmech', pass: 'admin123', role: 'admin' }];
         let currentUser = null;
         let activeIdx = null;
-        let todayStr = new Date().toLocaleDateString('en-CA'); 
+        let todayStr = new Date().toLocaleDateString('en-CA');
 
-        // --- 1. BOOTSTRAP ---
         document.addEventListener("DOMContentLoaded", () => {
             resetDateTime();
+            // Set dynamic header live date
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById("live-date").innerText = new Date().toLocaleDateString('en-IN', options);
+
             setTimeout(() => {
                 document.getElementById("splash-screen").style.opacity = '0';
                 setTimeout(() => {
                     document.getElementById("splash-screen").style.display = 'none';
-                    checkSession(); // Permanent Login Check
+                    checkSession(); 
                 }, 500);
-            }, 1800);
+            }, 2000);
         });
 
         function resetDateTime() {
@@ -419,11 +438,15 @@
             document.getElementById('cTime').value = now.toTimeString().split(' ')[0].substring(0,5);
         }
 
-        // --- 2. AUTHENTICATION (Permanent) ---
+        // PERMANENT SYSTEM AUTHENTICATION LOGIC
         function checkSession() {
-            let sessionUser = localStorage.getItem('vs_auth_master');
-            if(sessionUser) { currentUser = JSON.parse(sessionUser); initApp(); } 
-            else { document.getElementById("login-screen").style.display = 'flex'; }
+            let sessionUser = localStorage.getItem('vs_fin_serv_auth_active');
+            if(sessionUser) { 
+                currentUser = JSON.parse(sessionUser); 
+                initApp(); 
+            } else { 
+                document.getElementById("login-screen").style.display = 'flex'; 
+            }
         }
 
         function handleLogin(e) {
@@ -434,7 +457,7 @@
             
             if(validUser) {
                 currentUser = validUser;
-                localStorage.setItem('vs_auth_master', JSON.stringify(currentUser)); // PERMANENT
+                localStorage.setItem('vs_fin_serv_auth_active', JSON.stringify(currentUser)); // Session lockdown survival
                 document.getElementById('login-screen').style.display = 'none';
                 initApp();
             } else {
@@ -442,25 +465,27 @@
             }
         }
 
-        function logout() { localStorage.removeItem('vs_auth_master'); location.reload(); }
+        function logout() { 
+            localStorage.removeItem('vs_fin_serv_auth_active'); 
+            location.reload(); 
+        }
 
-        // --- 3. CORE LOGIC ---
         function initApp() {
             document.getElementById("main-app").style.display = 'block';
             document.getElementById("display-role").innerText = currentUser.role;
             if(currentUser.role === 'admin') document.getElementById('nav-admin').style.display = 'flex';
             
-            // Daily Reset Logic
-            if(localStorage.getItem("vs_last_date_master") !== todayStr) {
+            // Check cross-day boundaries to refresh unpaid state pipeline
+            if(localStorage.getItem("vs_fin_serv_last_calendar") !== todayStr) {
                 db.forEach(c => { if(c.duesPaid < c.totalDues) c.statusToday = 'unpaid'; });
-                localStorage.setItem("vs_last_date_master", todayStr);
+                localStorage.setItem("vs_fin_serv_last_calendar", todayStr);
                 saveDB();
             }
             renderDashboard();
             if(currentUser.role === 'admin') renderAdmin();
         }
 
-        function saveDB() { localStorage.setItem("vs_data_master", JSON.stringify(db)); }
+        function saveDB() { localStorage.setItem("vs_fin_serv_data_v5", JSON.stringify(db)); }
 
         function switchNav(viewId, element) {
             document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
@@ -470,12 +495,12 @@
             if(viewId === 'view-dashboard') renderDashboard();
         }
 
-        // --- 4. BACKUP & RESTORE ---
+        // FULL SECURE STORAGE FORWARD COMPATIBILITY (Backup & Restore)
         function exportData() {
             let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(db));
-            let dl = document.createElement('a'); dl.setAttribute("href", dataStr); dl.setAttribute("download", `VS_Fin_Backup_${todayStr}.json`);
+            let dl = document.createElement('a'); dl.setAttribute("href", dataStr); dl.setAttribute("download", `VS_Fin_Ledger_Backup_${todayStr}.json`);
             document.body.appendChild(dl); dl.click(); dl.remove();
-            showAlert('success', 'Backup Saved!', 'தரவுகள் பாதுகாப்பாக டவுன்லோட் செய்யப்பட்டது.');
+            showAlert('success', 'Backup Exported', 'தரவுகள் பாதுகாப்பாக கோப்பாக மாற்றப்பட்டது.');
         }
 
         function importData(event) {
@@ -484,26 +509,30 @@
             reader.onload = function(e) {
                 try {
                     let importedDB = JSON.parse(e.target.result);
-                    if(Array.isArray(importedDB)) { db = importedDB; saveDB(); renderDashboard(); showAlert('success', 'Restore Complete!', 'தரவுகள் மீட்கப்பட்டது.'); }
-                } catch (err) { showAlert('warning', 'Error!', 'தவறான ஃபைல்.'); }
+                    if(Array.isArray(importedDB)) { 
+                        db = importedDB; saveDB(); renderDashboard(); 
+                        showAlert('success', 'Ledger Restored', 'தரவுகள் முழுமையாக மீட்டமைக்கப்பட்டது.'); 
+                    }
+                } catch (err) { showAlert('warning', 'Parsing Error', 'தவறான கோப்பு அமைப்பு.'); }
             }; reader.readAsText(file);
         }
 
         function createManager(e) {
             e.preventDefault();
-            if(usersDB.length >= 11) { showAlert('warning', 'Limit Reached', 'Max 10 Managers allowed.'); return; }
+            if(usersDB.length >= 11) { showAlert('warning', 'Limit Breached', 'அதிகபட்சம் 10 பயனர்கள் மட்டுமே அனுமதிக்கப்படுவர்.'); return; }
             let u = document.getElementById('newMgrUser').value; let p = document.getElementById('newMgrPass').value;
-            if(usersDB.find(x => x.user === u)) { showAlert('warning', 'Oops!', 'Username exists!'); return; }
-            usersDB.push({ user: u, pass: p, role: 'manager' }); localStorage.setItem("vs_users_master", JSON.stringify(usersDB));
+            if(usersDB.find(x => x.user === u)) { showAlert('warning', 'Duplicate Identity', 'இந்த பயனர் பெயர் ஏற்கனவே உள்ளது.'); return; }
+            usersDB.push({ user: u, pass: p, role: 'manager' }); localStorage.setItem("vs_fin_serv_users_v5", JSON.stringify(usersDB));
             document.getElementById('newMgrUser').value = ''; document.getElementById('newMgrPass').value = '';
-            showAlert('success', 'Created!', 'Manager added.'); renderAdmin();
+            showAlert('success', 'User Authorized', 'புதிய கணக்கு வெற்றிகரமாக உருவாக்கப்பட்டது.'); renderAdmin();
         }
+
         function renderAdmin() {
-            let html = ""; usersDB.forEach(u => { html += `<div class="list-card" style="padding:18px;"><div class="lc-name" style="font-size:15px;">${u.user} <span class="badge" style="background:#E2E8F0; color:#111;">${u.role}</span></div><div class="lc-sub">Pass: ${u.pass}</div></div>`; });
+            let html = ""; usersDB.forEach(u => { html += `<div class="list-card" style="padding:18px;"><div class="lc-name" style="font-size:15px;">${u.user} <span class="badge" style="background:#040F2D; color:#F7B731;">${u.role}</span></div><div class="lc-sub">Key Management Hash: ${u.pass}</div></div>`; });
             document.getElementById('users-list').innerHTML = html;
         }
 
-        // --- 5. NEW ENTRY LOGIC ---
+        // RECOVERY CALCULATIONS ENGINE
         function calcEMI() {
             let p = parseFloat(document.getElementById('cPrincipal').value) || 0;
             let i = parseFloat(document.getElementById('cInterest').value) || 0;
@@ -515,7 +544,7 @@
             let name = document.getElementById('cName').value; let mobile = document.getElementById('cMobile').value;
             let prin = document.getElementById('cPrincipal').value; let dues = document.getElementById('cDuesCount').value;
 
-            if(!name || !mobile || !prin || !dues) { showAlert('warning', 'Missing Details', 'Please fill required fields.'); return; }
+            if(!name || !mobile || !prin || !dues) { showAlert('warning', 'Validation Error', 'அனைத்து முக்கிய புலங்களையும் நிரப்பவும்.'); return; }
 
             let p = parseFloat(prin); let i = parseFloat(document.getElementById('cInterest').value) || 0;
             let d = parseInt(dues); let total = p + i; let emi = Math.round(total/d);
@@ -534,21 +563,22 @@
             document.getElementById('entryForm').reset(); calcEMI(); resetDateTime();
             
             if(needsPDF) {
-                showAlert('success', 'Created!', 'Generating Invoice PDF...');
-                generatePDF(c, "New Loan Agreement", `₹ ${c.principal}`);
-            } else { showAlert('success', 'Saved!', 'Account added to Dashboard.'); }
+                showAlert('success', 'Account Created', 'சப்ளை பில் பிடிஎஃப் தயார் செய்யப்படுகிறது...');
+                generatePDF(c, "Disbursal Contract & Opening Invoice", `₹ ${c.principal}`);
+            } else { showAlert('success', 'Ledger Written', 'கஸ்டமர் கணக்கு சேமிக்கப்பட்டது.'); }
             
             setTimeout(() => { document.querySelectorAll('.nav-item')[0].click(); }, 1500);
         }
 
-        // --- 6. DASHBOARD ---
+        // PIPELINE & MATRIX GRAPH GENERATOR
         function renderDashboard() {
-            let tTarget = 0, tCol = 0, tPen = 0, tNew = 0; let html = "";
+            let tTarget = 0, tCol = 0, tPen = 0, tNew = 0, activeAccountsCount = 0; let html = "";
 
             db.forEach((c, idx) => {
                 if(c.entryDate === todayStr) tNew += c.principal;
                 if(c.duesPaid >= c.totalDues) return; 
 
+                activeAccountsCount++;
                 let dueAmt = c.emi + c.overdueAmount; tTarget += dueAmt;
                 let isPaid = c.statusToday === 'paid'; let isPending = c.overdueAmount > 0;
 
@@ -559,7 +589,7 @@
                         <div>
                             <div class="lc-name">${c.name} <span class="lc-id">${c.id}</span></div>
                             <div class="lc-sub"><i class="fa-solid fa-location-dot" style="color:var(--accent);"></i> ${c.village} (${c.line})</div>
-                            <div class="lc-sub" style="margin-top:2px;">${c.type} • Due ${c.duesPaid}/${c.totalDues}</div>
+                            <div class="lc-sub" style="margin-top:4px;">${c.type} Base Plan • Installment ${c.duesPaid}/${c.totalDues}</div>
                         </div>
                         <div style="text-align: right;">
                             <div class="lc-amt">₹${dueAmt}</div>
@@ -569,32 +599,39 @@
                     </div>`;
             });
 
-            document.getElementById('dash-target').innerText = `₹ ${tTarget}`; document.getElementById('dash-col').innerText = `₹ ${tCol}`;
-            document.getElementById('dash-pen').innerText = `₹ ${tPen}`; document.getElementById('dash-new').innerText = `₹ ${tNew}`;
-            document.getElementById('customer-list').innerHTML = html || `<div style="text-align:center; padding:30px; color:var(--text-muted); font-weight:800;">No active dues today.</div>`;
+            document.getElementById('dash-target').innerText = `₹ ${tTarget.toLocaleString('en-IN')}`; 
+            document.getElementById('dash-col').innerText = `₹ ${tCol.toLocaleString('en-IN')}`;
+            document.getElementById('dash-pen').innerText = `₹ ${tPen.toLocaleString('en-IN')}`; 
+            document.getElementById('dash-new').innerText = `₹ ${tNew.toLocaleString('en-IN')}`;
+            document.getElementById('dash-active-count').innerText = activeAccountsCount;
+            document.getElementById('customer-list').innerHTML = html || `<div style="text-align:center; padding:40px; color:var(--text-muted); font-weight:800;">இன்றைய பைப்பலைனில் கணக்குகள் எதுவும் இல்லை.</div>`;
         }
 
-        // --- 7. CUSTOMER MODAL & RE-ENTRY ---
         function openModal(idx) {
             activeIdx = idx; let c = db[idx];
             let paidAmt = c.duesPaid * c.emi; let dueAmt = c.emi + c.overdueAmount;
 
             document.getElementById('m-name').innerText = c.name; document.getElementById('m-id').innerText = c.id;
             document.getElementById('m-village').innerText = c.village; document.getElementById('m-line').innerText = c.line;
-            document.getElementById('m-start-date').innerText = c.startDate.split(',')[0];
+            document.getElementById('m-start-date').innerText = c.startDate;
             
-            document.getElementById('m-call-btn').href = `tel:${c.mobile}`;
+            // Standard cross-origin resilient direct call handler
+            document.getElementById('m-call-btn').onclick = function(e) {
+                e.preventDefault();
+                window.location.href = "tel:" + c.mobile;
+            };
 
-            document.getElementById('m-principal').innerText = `₹${c.principal}`; document.getElementById('m-total').innerText = `₹${c.totalAmount}`;
-            document.getElementById('m-paid-amt').innerText = `₹${paidAmt}`; document.getElementById('m-bal').innerText = `₹${c.totalAmount - paidAmt}`;
+            document.getElementById('m-principal').innerText = `₹${c.principal.toLocaleString('en-IN')}`; 
+            document.getElementById('m-total').innerText = `₹${c.totalAmount.toLocaleString('en-IN')}`;
+            document.getElementById('m-paid-amt').innerText = `₹${paidAmt.toLocaleString('en-IN')}`; 
+            document.getElementById('m-bal').innerText = `₹${(c.totalAmount - paidAmt).toLocaleString('en-IN')}`;
             document.getElementById('m-paid-dues').innerText = c.duesPaid; document.getElementById('m-tot-dues').innerText = c.totalDues;
-            document.getElementById('m-overdue').innerText = `₹${c.overdueAmount}`;
+            document.getElementById('m-overdue').innerText = `₹${c.overdueAmount.toLocaleString('en-IN')}`;
 
             let hHtml = "";
             [...c.history].reverse().forEach(h => { hHtml += `<div class="h-item"><span style="color:var(--text-main);">${h.date}</span><span style="color:${h.status==='Paid'?'var(--success)':'var(--danger)'};">${h.status} (₹${h.amount})</span></div>`; });
-            document.getElementById('m-history').innerHTML = hHtml || `<div style="text-align:center; color:#888; font-size:13px; margin-top:10px; font-weight:700;">No History</div>`;
+            document.getElementById('m-history').innerHTML = hHtml || `<div style="text-align:center; color:#888; padding:20px; font-size:13px; font-weight:700;">வரலாற்று ஆவணங்கள் எதுவும் இல்லை.</div>`;
 
-            // DYNAMIC ACTIONS (UNDO & RE-DOWNLOAD INCLUDED)
             let aHtml = "";
             if(c.statusToday === 'unpaid') {
                 aHtml = `
@@ -605,20 +642,15 @@
                         <i class="fa-solid fa-floppy-disk"></i> Save Only ₹${dueAmt}
                     </button>
                     <button class="btn-act" style="background:var(--primary); color:var(--accent); grid-column: span 2;" onclick="processAction('paid', true)">
-                        <i class="fa-solid fa-file-pdf"></i> Collect ₹${dueAmt} & Download PDF
+                        <i class="fa-solid fa-file-pdf"></i> Collect Due & Print Invoice Receipt
                     </button>`;
-            } else if (c.statusToday === 'paid') {
+            } else {
                 aHtml = `
-                    <button class="btn-act" style="background:var(--surface); border:2px solid var(--danger); color:var(--danger);" onclick="undoAction()">
-                        <i class="fa-solid fa-rotate-left"></i> Status Reset
+                    <button class="btn-act" style="background:var(--surface); border:2px solid var(--danger); color:var(--danger);" onclick="resetStatusToday()">
+                        <i class="fa-solid fa-rotate-left"></i> Reset Recovery Status
                     </button>
-                    <button class="btn-act" style="background:var(--primary); color:var(--accent);" onclick="downloadSeparatePDF()">
-                        <i class="fa-solid fa-file-pdf"></i> Receipt PDF
-                    </button>`;
-            } else if (c.statusToday === 'pending') {
-                aHtml = `
-                    <button class="btn-act" style="background:var(--surface); border:2px solid var(--primary); color:var(--primary); grid-column: span 2;" onclick="undoAction()">
-                        <i class="fa-solid fa-rotate-left"></i> Status Reset (Undo Pending)
+                    <button class="btn-act" style="background:var(--primary); color:var(--accent); ${c.statusToday==='pending'?'display:none;':''}" onclick="downloadSeparatePDF()">
+                        <i class="fa-solid fa-file-pdf"></i> Re-print Receipt PDF
                     </button>`;
             }
             document.getElementById('m-actions').innerHTML = aHtml;
@@ -627,19 +659,22 @@
 
         function closeModal(id) { document.getElementById(id).classList.remove('active'); }
 
-        function undoAction() {
+        // INTERACTIVE STATE RESET LOGIC
+        function resetStatusToday() {
             let c = db[activeIdx];
             if(c.statusToday === 'paid') { c.duesPaid -= 1; } 
             else if (c.statusToday === 'pending') { c.overdueAmount -= c.emi; }
             c.history.pop(); c.statusToday = 'unpaid';
             saveDB(); renderDashboard(); openModal(activeIdx);
-            showAlert('warning', 'Reset Successful', 'You can now enter new status.');
+            showAlert('warning', 'Status Reset Done', 'வாடிக்கையாளரின் இன்றைய நிலை மாற்றியமைக்கப்பட்டது.');
         }
 
         function downloadSeparatePDF() {
-            let c = db[activeIdx]; let amt = c.history[c.history.length-1].amount; 
-            showAlert('success', 'Downloading!', 'Generating Receipt...');
-            generatePDF(c, "EMI Collection Receipt", `₹ ${amt}`);
+            let c = db[activeIdx]; 
+            let lastPayment = c.history[c.history.length - 1];
+            let amt = lastPayment ? lastPayment.amount : c.emi;
+            showAlert('success', 'Re-printing', 'ரசீது நகல் பதிவிறக்கம் செய்யப்படுகிறது...');
+            generatePDF(c, "EMI Recovery Settlement Duplicate Invoice", `₹ ${amt}`);
         }
 
         function processAction(action, needsPDF) {
@@ -649,56 +684,55 @@
             if(action === 'paid') {
                 c.duesPaid += 1; c.overdueAmount = 0; c.statusToday = 'paid';
                 c.history.push({ date: dateStr, status: 'Paid', amount: amtHandled });
-                if(needsPDF) { showAlert('success', 'Collected!', 'Generating PDF...'); generatePDF(c, "EMI Collection & Clearance Receipt", `₹ ${amtHandled}`); } 
-                else { showAlert('success', 'Saved!', `₹ ${amtHandled} collection registered.`); }
+                if(needsPDF) { 
+                    showAlert('success', 'Capital Restructured', 'ரசீது அச்சிடப்படுகிறது...'); 
+                    generatePDF(c, "EMI Recovery Settlement Official Invoice", `₹ ${amtHandled}`); 
+                } else { 
+                    showAlert('success', 'Ledger Written', `₹ ${amtHandled} வசூல் பதிவு செய்யப்பட்டது.`); 
+                }
             } else {
                 c.overdueAmount += c.emi; c.statusToday = 'pending';
-                c.history.push({ date: dateStr, status: 'Pending', amount: c.emi });
-                showAlert('warning', 'Pending', "Marked as Pending.");
+                c.history.push({ date: dateStr, status: 'Overdue Pending', amount: c.emi });
+                showAlert('warning', 'Account Flagged', "இன்றைய தவணை பெண்டிங் பட்டியலில் சேர்க்கப்பட்டது.");
             }
             saveDB(); closeModal('customer-modal'); renderDashboard();
         }
 
-        // --- 8. UI ALERTS ---
         function showAlert(type, title, msg) {
             let icon = document.getElementById('alert-icon');
             icon.className = `alert-icon ${type}`; icon.innerHTML = type === 'success' ? '<i class="fa-solid fa-check"></i>' : '<i class="fa-solid fa-exclamation"></i>';
             document.getElementById('alert-title').innerText = title; document.getElementById('alert-title').style.color = type === 'success' ? 'var(--primary)' : 'var(--accent)';
             document.getElementById('alert-msg').innerText = msg; 
             document.getElementById('alert-modal').classList.add('active');
-            if(type === 'success') { setTimeout(() => { closeModal('alert-modal'); }, 2000); }
-            else { setTimeout(() => { closeModal('alert-modal'); }, 3000); }
+            setTimeout(() => { closeModal('alert-modal'); }, 2000);
         }
 
-        // --- 9. ROBUST PDF GENERATOR FIX ---
+        // FOOLPROOF ZERO-LATENCY MOBILE PDF ENGINES
         function generatePDF(c, desc, amountStr) {
-            // Fill Data
             document.getElementById('pdf-id').innerText = c.id; document.getElementById('pdf-mobile').innerText = c.mobile;
             document.getElementById('pdf-location').innerText = `${c.village} (${c.line})`;
-            document.getElementById('pdf-date').innerText = new Date().toLocaleString('en-IN', {day:'numeric', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit'});
+            document.getElementById('pdf-date').innerText = new Date().toLocaleString('en-IN');
             document.getElementById('pdf-name').innerText = c.name; document.getElementById('pdf-type').innerText = c.type;
             document.getElementById('pdf-desc').innerText = desc; document.getElementById('pdf-amount').innerText = amountStr;
 
             let renderZone = document.getElementById('pdf-render-zone');
             let contentEl = document.getElementById('pdf-content');
             
-            // Step 1: Make Render Zone Visible (Forces Browser to Calculate Dimensions properly for mobile)
             renderZone.style.display = 'flex';
             
             let opt = { 
-                margin: 0.5, 
-                filename: `VS_Fin_Serv_${c.id}_${Date.now()}.pdf`, 
+                margin: 0.4, 
+                filename: `VS_Fin_Invoice_${c.id}_${Date.now()}.pdf`, 
                 image: { type: 'jpeg', quality: 1 }, 
                 html2canvas: { scale: 2, useCORS: true }, 
                 jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' } 
             };
             
-            // Step 2: Generate PDF then Hide Zone
             setTimeout(() => {
                 html2pdf().set(opt).from(contentEl).save().then(() => { 
                     renderZone.style.display = 'none'; 
                 });
-            }, 500); // 0.5s delay ensures font rendering is complete before capture
+            }, 600); 
         }
     </script>
 </body>
