@@ -3,434 +3,692 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>VS Fin Serv - Corporate Ultimate Pro</title>
-    <!-- Premium Fonts & Icons -->
+    <title>Coscoom - VS Fin Serv Master Pro</title>
+    
+    <link rel="manifest" id="manifest-placeholder">
+    <meta name="theme-color" content="#06112A">
+
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Stable html2pdf CDN -->
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 
     <style>
-        /* === ADVANCED COLOR PSYCHOLOGY THEME === */
+        /* === SCIENCE-BASED COLOR PSYCHOLOGY & CLEAN UI === */
         :root {
-            --primary: #040F2D;   
-            --secondary: #0D204A; 
-            --accent: #F7B731;    
-            --success: #00B873;   
-            --danger: #FF3B30;    
-            --info: #007AFF;      
-            --bg: #F2F6F9;        
+            --primary: #040D21;   
+            --secondary: #1E293B; 
+            --accent: #F5B041;    
+            --success: #10B981;   
+            --danger: #EF4444;    
+            --info: #3B82F6;      
+            --whatsapp: #25D366;  
+            --bg: #F4F7F9;        
             --surface: #FFFFFF;
-            --text-main: #1C1C1E;
-            --text-muted: #8E8E93;
-            --border: #E5E5EA;
+            --text-main: #0F172A;
+            --text-muted: #64748B;
+            --border: #E2E8F0;
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.02);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.05);
+            --shadow-lg: 0 12px 30px rgba(4,13,33,0.1);
+        }
+
+        body.dark-mode {
+            --bg: #0F172A; --surface: #1E293B; --text-main: #F8FAFC;
+            --text-muted: #94A3B8; --border: #334155; --shadow-md: 0 4px 12px rgba(0,0,0,0.3);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
-        body { background-color: var(--bg); color: var(--text-main); overflow-x: hidden; padding-bottom: 90px; }
+        body { background-color: var(--bg); color: var(--text-main); overflow-x: hidden; padding-bottom: 100px; transition: background-color 0.3s; }
 
         /* === 1. SPLASH SCREEN === */
-        #splash-screen { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: var(--primary); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 9999; transition: opacity 0.5s ease; }
-        .god-img-box { width: 260px; height: 360px; border-radius: 24px; box-shadow: 0 0 60px rgba(247, 183, 49, 0.6); border: 3px solid var(--accent); background: #111; display: flex; justify-content: center; align-items: center; overflow: hidden; animation: zoomIn 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
-        .god-img-box img { width: 100%; height: 100%; object-fit: cover; }
-        .splash-title { color: var(--accent); font-size: 36px; font-weight: 900; margin-top: 30px; letter-spacing: 5px; text-transform: uppercase; opacity: 0; animation: fadeUp 0.8s ease 0.8s forwards; }
+        #splash-screen {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: var(--primary);
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            z-index: 9999; transition: opacity 0.5s ease;
+        }
+        .god-round-box {
+            width: 200px; height: 200px; border-radius: 50%;
+            background: #000; overflow: hidden; border: 4px solid var(--accent);
+            box-shadow: 0 0 30px rgba(245, 176, 65, 0.4);
+            animation: zoomIn 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            display: flex; justify-content: center; align-items: center;
+        }
+        .god-round-box img { width: 100%; height: 100%; object-fit: cover; }
+        .splash-title { color: var(--accent); font-size: 28px; font-weight: 900; margin-top: 30px; letter-spacing: 3px; text-transform: uppercase; opacity: 0; animation: fadeUp 0.8s ease 0.5s forwards; }
+        
         @keyframes zoomIn { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
         @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
         /* === 2. LOGIN SCREEN === */
-        #login-screen { display: none; min-height: 100vh; background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); flex-direction: column; justify-content: center; align-items: center; padding: 20px; }
-        .login-box { background: rgba(255,255,255,0.96); backdrop-filter: blur(20px); width: 100%; max-width: 400px; padding: 40px 25px; border-radius: 28px; box-shadow: 0 20px 50px rgba(0,0,0,0.3); text-align: center; animation: slideUp 0.5s ease; border: 1px solid rgba(255,255,255,0.5); }
-        .login-box h2 { font-size: 28px; font-weight: 900; color: var(--primary); margin-bottom: 5px; }
-        .login-box p { font-size: 14px; color: var(--text-muted); margin-bottom: 30px; font-weight: 700; }
-        .btn-login { width: 100%; background: var(--accent); color: var(--primary); padding: 18px; border-radius: 16px; font-size: 16px; font-weight: 900; border: none; cursor: pointer; transition: 0.2s; box-shadow: 0 8px 20px rgba(247, 183, 49, 0.4); }
-        .btn-login:active { transform: scale(0.95); }
+        #login-screen { display: none; min-height: 100vh; background: var(--bg); flex-direction: column; justify-content: center; align-items: center; padding: 20px; }
+        .login-box { width: 100%; max-width: 400px; padding: 40px 25px; border-radius: 24px; background: var(--surface); box-shadow: var(--shadow-lg); text-align: center; border: 1px solid var(--border); }
+        .login-box h2 { font-size: 26px; font-weight: 900; color: var(--primary); margin-bottom: 8px; }
+        body.dark-mode .login-box h2 { color: #fff; }
+        .login-box p { font-size: 14px; color: var(--text-muted); margin-bottom: 30px; font-weight: 600; }
+        
+        .input-box { width: 100%; padding: 16px; border: 2px solid var(--border); border-radius: 14px; font-size: 15px; margin-bottom: 16px; outline: none; background: var(--surface); color: var(--text-main); font-weight: 600; transition: all 0.2s; }
+        .input-box:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(245, 176, 65, 0.15); }
+
+        .btn-login { width: 100%; background: var(--primary); color: white; padding: 16px; border-radius: 14px; font-size: 16px; font-weight: 800; border: none; cursor: pointer; transition: 0.2s; box-shadow: var(--shadow); }
+        .btn-login:active { transform: scale(0.97); }
 
         /* === 3. HEADER === */
-        header { background: var(--surface); padding: 20px; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 25px rgba(0,0,0,0.04); display: flex; justify-content: space-between; align-items: center; border-bottom-left-radius: 24px; border-bottom-right-radius: 24px; }
-        .h-title { font-size: 24px; font-weight: 900; color: var(--primary); letter-spacing: 0.5px; }
-        .h-sub { font-size: 11px; font-weight: 800; color: var(--accent); text-transform: uppercase; background: rgba(247,183,49,0.12); padding: 4px 10px; border-radius: 8px; display: inline-block; margin-top: 4px; }
-        .btn-logout { background: #FFEEEE; color: var(--danger); border: none; padding: 10px 16px; border-radius: 12px; font-weight: 800; cursor: pointer; display: flex; gap: 6px; align-items: center; transition: 0.2s; }
-        .btn-logout:active { transform: scale(0.95); }
+        header { background: var(--surface); padding: 15px 20px; position: sticky; top: 0; z-index: 100; box-shadow: var(--shadow-sm); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); }
+        .h-title { font-size: 20px; font-weight: 900; color: var(--primary); letter-spacing: -0.5px; }
+        body.dark-mode .h-title { color: #fff; }
+        .h-sub { font-size: 10px; font-weight: 800; color: #fff; text-transform: uppercase; background: var(--info); padding: 3px 10px; border-radius: 12px; display: inline-block; margin-top: 4px; }
+        .header-actions { display: flex; gap: 12px; }
+        .btn-icon-top { background: var(--bg); color: var(--text-main); border: 1px solid var(--border); width: 38px; height: 38px; border-radius: 12px; font-size: 15px; cursor: pointer; display: flex; justify-content: center; align-items: center; transition: 0.2s; }
+        .btn-logout { background: rgba(239, 68, 68, 0.1); color: var(--danger); border: none; padding: 10px 14px; border-radius: 12px; font-weight: 800; cursor: pointer; display: flex; gap: 8px; align-items: center; }
 
-        /* === ALIGNMENT FIXES: RESPONSIVE GRIDS === */
-        .container { padding: 20px; }
-        .grid-2 { display: grid; grid-template-columns: 1fr; gap: 15px; width: 100%; } /* Stack on mobile */
-        @media(min-width: 500px) { .grid-2 { grid-template-columns: 1fr 1fr; } } /* Side-by-side on larger screens */
+        /* === LAYOUTS === */
+        .container { padding: 15px; max-width: 800px; margin: 0 auto; }
+        .grid-2 { display: grid; grid-template-columns: 1fr; gap: 12px; width: 100%; margin-bottom: 12px; }
+        @media(min-width: 600px) { .grid-2 { grid-template-columns: 1fr 1fr; } }
         
-        .grid-4 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 25px; } /* 2x2 Box alignment on mobile */
-        @media(min-width: 600px) { .grid-4 { grid-template-columns: 1fr 1fr 1fr 1fr; } }
+        .stats-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+        .stats-wrapper .sb-act { grid-column: 1 / -1; } /* Full width on mobile */
+        @media(min-width: 768px) { .stats-wrapper { grid-template-columns: repeat(5, 1fr); } .stats-wrapper .sb-act { grid-column: auto; } }
 
-        /* === 4. DASHBOARD CARDS === */
-        .hero-card { background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); padding: 30px 20px; border-radius: 24px; color: white; margin-bottom: 25px; box-shadow: 0 15px 35px rgba(4, 15, 45, 0.25); position: relative; overflow: hidden; }
-        .hero-card::after { content: ''; position: absolute; top: -30px; right: -30px; width: 150px; height: 150px; background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%); border-radius: 50%; }
-        .hero-card h3 { font-size: 13px; font-weight: 700; opacity: 0.8; text-transform: uppercase; letter-spacing: 1px; }
-        .hero-card h2 { font-size: 36px; font-weight: 900; color: var(--accent); margin-top: 8px; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
-        .hero-date { font-size: 12px; opacity: 0.7; margin-top: 8px; font-weight: 600; display: flex; align-items: center; gap: 5px; }
+        /* === HERO CARDS & STATS === */
+        .hero-card { background: var(--primary); padding: 25px 20px; border-radius: 20px; color: white; margin-bottom: 20px; box-shadow: var(--shadow-lg); position: relative; overflow: hidden; }
+        .hero-card h3 { font-size: 12px; font-weight: 600; opacity: 0.8; text-transform: uppercase; letter-spacing: 1px; color: #cbd5e1; }
+        .hero-card h2 { font-size: 34px; font-weight: 900; color: var(--accent); margin-top: 6px; }
         
-        .stat-box { background: var(--surface); padding: 18px 12px; border-radius: 20px; border: 1px solid var(--border); text-align: center; box-shadow: 0 6px 15px rgba(0,0,0,0.02); display: flex; flex-direction: column; justify-content: center; }
-        .stat-box h4 { font-size: 11px; color: var(--text-muted); font-weight: 900; text-transform: uppercase; margin-bottom: 6px; }
-        .stat-box h3 { font-size: 18px; font-weight: 900; }
-        .c-green { color: var(--success); } .c-red { color: var(--danger); } .c-blue { color: var(--info); }
-
-        /* LIST ITEM */
-        .list-card { background: var(--surface); padding: 20px; border-radius: 20px; margin-bottom: 15px; border: 1px solid var(--border); border-left: 6px solid var(--primary); cursor: pointer; transition: 0.2s; box-shadow: 0 4px 15px rgba(0,0,0,0.03); display: flex; justify-content: space-between; align-items: center; }
-        .list-card:active { transform: scale(0.98); background: #F8FAFC; }
-        .list-card.overdue { border-left-color: var(--danger); background: #FFF5F5; }
-        .list-card.completed { border-left-color: var(--success); opacity: 0.7; }
+        .stat-box { background: var(--surface); padding: 18px 12px; border-radius: 16px; border: 1px solid var(--border); text-align: center; box-shadow: var(--shadow-md); position: relative; overflow: hidden; }
+        .stat-box::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; }
+        .sb-col::before { background: var(--success); } .sb-pen::before { background: var(--danger); } .sb-dis::before { background: var(--info); } .sb-rec::before { background: var(--teal); } .sb-act::before { background: var(--accent); }
+        .stat-box h4 { font-size: 10px; color: var(--text-muted); font-weight: 800; text-transform: uppercase; margin-bottom: 6px; }
+        .stat-box h3 { font-size: 18px; font-weight: 900; color: var(--text-main); }
         
-        .lc-name { font-size: 18px; font-weight: 900; color: var(--primary); display: flex; align-items: center; gap: 10px; }
-        .lc-id { font-size: 11px; background: var(--bg); color: var(--text-muted); padding: 3px 8px; border-radius: 6px; font-weight: 800; border: 1px solid var(--border); }
-        .lc-sub { font-size: 13px; color: var(--text-muted); font-weight: 700; margin-top: 8px; display: flex; gap: 12px; align-items: center; }
-        .lc-amt { font-size: 22px; font-weight: 900; color: var(--primary); text-align: right; }
-        .badge { font-size: 11px; padding: 5px 10px; border-radius: 8px; font-weight: 900; display: inline-block; margin-top: 6px; text-transform: uppercase; }
+        /* === SEARCH & FILTERS === */
+        .search-filter-container { background: var(--surface); padding: 18px; border-radius: 20px; border: 1px solid var(--border); margin-bottom: 20px; box-shadow: var(--shadow-md); }
+        .utility-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .tot-accounts { font-size: 14px; font-weight: 800; color: var(--primary); }
+        body.dark-mode .tot-accounts { color: var(--accent); }
 
-        /* === 5. ENTRY FORM === */
-        .form-container { background: var(--surface); padding: 25px; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); margin-bottom: 30px; border: 1px solid var(--border); }
+        .search-wrapper { position: relative; margin-bottom: 12px; display: flex; gap: 10px; }
+        .search-box-inner { position: relative; flex-grow: 1; }
+        .search-box-inner i.fa-magnifying-glass { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 16px; }
+        .search-input { width: 100%; padding: 15px 15px 15px 45px; border: 2px solid var(--border); border-radius: 14px; font-size: 14px; font-weight: 600; background: var(--bg); color: var(--text-main); outline: none; transition: 0.2s; }
+        .search-input:focus { border-color: var(--accent); background: var(--surface); }
+
+        /* === PIPELINE LIST CARDS === */
+        .list-card { background: var(--surface); padding: 20px; border-radius: 18px; margin-bottom: 12px; border: 1px solid var(--border); border-left: 6px solid var(--primary); cursor: pointer; display: flex; justify-content: space-between; align-items: center; box-shadow: var(--shadow-sm); transition: 0.2s; }
+        .list-card:active { transform: scale(0.98); }
+        .list-card.overdue { border-left-color: var(--danger); background: rgba(239, 68, 68, 0.05); }
+        .list-card.completed { border-left-color: var(--success); opacity: 0.8; }
+        
+        .lc-info-container { flex-grow: 1; display: flex; gap: 12px; align-items: center; }
+        .c-photo-thumb { width: 45px; height: 45px; border-radius: 10px; object-fit: cover; background: var(--bg); border: 1px solid var(--border); }
+        .lc-name { font-size: 16px; font-weight: 800; color: var(--primary); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 4px; }
+        body.dark-mode .lc-name { color: #fff; }
+        .lc-id-tag { font-size: 10px; background: var(--bg); color: var(--text-muted); padding: 2px 6px; border-radius: 6px; font-weight: 700; border: 1px solid var(--border); }
+        .lc-sub { font-size: 12px; color: var(--text-muted); font-weight: 600; margin-top: 4px; display: flex; gap: 10px; flex-wrap: wrap; }
+        .lc-amt-container { text-align: right; min-width: 90px; display: flex; flex-direction: column; align-items: flex-end; }
+        .lc-amt { font-size: 20px; font-weight: 900; color: var(--primary); }
+        body.dark-mode .lc-amt { color: var(--accent); }
+        .badge { font-size: 10px; padding: 4px 8px; border-radius: 6px; font-weight: 800; display: inline-block; text-transform: uppercase; margin-top: 4px; }
+
+        /* === DATA ENTRY FORM === */
+        .form-container { padding: 25px 20px; border-radius: 24px; margin-bottom: 25px; background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow-md); }
+        .form-container h3 { font-size: 20px; font-weight: 800; margin-bottom: 20px; color: var(--primary); display: flex; align-items: center; gap: 10px; border-bottom: 2px solid var(--bg); padding-bottom: 15px; }
+        body.dark-mode .form-container h3 { color: #fff; }
+        
         .form-group { margin-bottom: 15px; width: 100%; }
-        .form-group label { display: block; font-size: 14px; font-weight: 900; color: var(--secondary); margin-bottom: 8px; }
+        .form-group label { display: block; font-size: 12px; font-weight: 800; color: var(--text-muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
         
-        .input-box { width: 100%; padding: 16px; border: 2px solid var(--border); border-radius: 16px; font-size: 15px; margin-bottom: 4px; outline: none; background: var(--bg); transition: 0.3s; font-weight: 700; color: var(--primary); }
-        .input-box:focus { border-color: var(--accent); background: var(--surface); box-shadow: 0 0 0 4px rgba(247, 183, 49, 0.15); }
-        .input-money:focus { border-color: var(--success) !important; box-shadow: 0 0 0 4px rgba(0, 184, 115, 0.15) !important; }
+        /* BEAUTIFUL PHOTO UPLOAD BOX (Replaces the ugly "Choose File") */
+        .photo-upload-box {
+            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+            width: 100%; height: 120px; border: 2px dashed var(--accent); border-radius: 16px;
+            background: rgba(245, 176, 65, 0.05); color: var(--accent); cursor: pointer;
+            font-weight: 700; font-size: 14px; transition: 0.2s; position: relative; overflow: hidden;
+        }
+        .photo-upload-box:active { transform: scale(0.98); background: rgba(245, 176, 65, 0.1); }
+        .photo-upload-box i { font-size: 30px; }
+        #photo-preview { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 2; border-radius: 14px; display: none; }
+        .remove-photo { position: absolute; top: 10px; right: 10px; z-index: 3; background: rgba(255,0,0,0.8); color: white; border: none; border-radius: 50%; width: 30px; height: 30px; cursor: pointer; display: none; }
 
-        .btn-submit { width: 100%; padding: 18px; border-radius: 16px; font-size: 16px; font-weight: 900; border: none; cursor: pointer; transition: 0.2s; display: flex; justify-content: center; align-items: center; gap: 10px; }
-        .btn-submit:active { transform: scale(0.96); }
-        .btn-primary { background: var(--primary); color: var(--accent); box-shadow: 0 8px 20px rgba(4,15,45,0.3); }
-        .btn-outline { background: var(--surface); color: var(--primary); border: 2px solid var(--primary); box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        /* DIGITAL SIGNATURE PAD */
+        .sig-container { border: 2px solid var(--border); border-radius: 16px; overflow: hidden; background: #fff; margin-bottom: 10px; }
+        #sig-canvas { width: 100%; height: 150px; touch-action: none; background: #fff; cursor: crosshair; }
+        .sig-header { display: flex; justify-content: space-between; align-items: center; padding: 10px 15px; background: var(--bg); border-bottom: 1px solid var(--border); }
+        .btn-clear-sig { background: rgba(239,68,68,0.1); color: var(--danger); border: none; padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: 800; cursor: pointer; }
 
-        /* === 6. MODALS & DETAILED HISTORY === */
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(4,15,45,0.7); backdrop-filter: blur(8px); display: none; justify-content: center; align-items: flex-end; z-index: 2000; }
+        .input-money { background: rgba(16, 185, 129, 0.05) !important; border-color: rgba(16, 185, 129, 0.3) !important; color: var(--success) !important; }
+        .input-interest { background: rgba(245, 176, 65, 0.05) !important; border-color: rgba(245, 176, 65, 0.3) !important; color: #D97706 !important; }
+
+        .btn-submit { width: 100%; padding: 16px; border-radius: 14px; font-size: 15px; font-weight: 800; border: none; cursor: pointer; transition: 0.2s; display: flex; justify-content: center; align-items: center; gap: 8px; }
+        .btn-submit:active { transform: scale(0.97); }
+        .btn-primary { background: var(--primary); color: white; box-shadow: var(--shadow-md); }
+        .btn-outline { background: transparent; color: var(--primary); border: 2px solid var(--primary); }
+        body.dark-mode .btn-outline { color: var(--accent); border-color: var(--accent); }
+
+        /* === FINANCIAL ANALYTICS === */
+        .analytics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+        .css-ring { width: 60px; height: 60px; border-radius: 50%; background: conic-gradient(var(--accent) var(--p), var(--bg) 0); display: flex; align-items: center; justify-content: center; position: relative; margin: 0 auto; }
+        .css-ring::before { content: ''; width: 46px; height: 46px; background: var(--surface); border-radius: 50%; position: absolute; }
+        .css-ring span { position: relative; z-index: 1; font-weight: 800; font-size: 12px; color: var(--text-main); }
+
+        /* === EXPANDED MODAL === */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); display: none; justify-content: center; align-items: flex-end; z-index: 2000; }
         .modal-overlay.active { display: flex; animation: fadeIn 0.3s ease; }
-        .modal-content { background: var(--bg); width: 100%; height: 92vh; border-radius: 30px 30px 0 0; padding: 30px 20px; overflow-y: auto; box-shadow: 0 -15px 50px rgba(0,0,0,0.3); animation: slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); display: flex; flex-direction: column; }
+        .modal-content { background: var(--surface); width: 100%; max-width: 800px; height: 90vh; border-radius: 30px 30px 0 0; box-shadow: 0 -10px 40px rgba(0,0,0,0.3); animation: slideUp 0.3s ease; display: flex; flex-direction: column; overflow: hidden;}
+        body.dark-mode .modal-content { background: var(--secondary); color: white; }
         
+        .modal-body-scroll { padding: 25px 20px; overflow-y: auto; flex-grow: 1; }
+
+        .modal-tabs { display: flex; gap: 8px; margin-bottom: 15px; background: var(--bg); padding: 5px; border-radius: 14px; border: 1px solid var(--border); }
+        .m-tab { flex: 1; text-align: center; padding: 10px; font-weight: 700; font-size: 13px; border-radius: 10px; cursor: pointer; color: var(--text-muted); transition: 0.2s; }
+        .m-tab.active { background: var(--primary); color: white; }
+
         .m-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-        .m-header h2 { font-size: 26px; font-weight: 900; color: var(--primary); display: flex; align-items: center; gap: 12px; }
-        .btn-icon { width: 40px; height: 40px; border-radius: 50%; border: none; font-size: 16px; cursor: pointer; display: flex; justify-content: center; align-items: center; transition: 0.2s; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-        .btn-icon.close { background: var(--surface); color: var(--text-main); border: 1px solid var(--border); }
+        .btn-icon.close { background: var(--bg); color: var(--text-main); border: 1px solid var(--border); width: 40px; height: 40px; border-radius: 50%; font-size: 16px; cursor: pointer; }
         
-        .c-details-row { background: var(--surface); padding: 16px; border-radius: 18px; font-size: 13px; color: var(--text-muted); font-weight: 800; margin-bottom: 20px; display: flex; gap: 12px; flex-wrap: wrap; box-shadow: 0 2px 10px rgba(0,0,0,0.02); border: 1px solid var(--border); }
-        .c-details-row span { display: flex; align-items: center; gap: 6px; }
-
-        .btn-call { background: var(--info); color: white; border: none; padding: 14px 20px; border-radius: 14px; font-weight: 900; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 5px 15px rgba(0, 122, 255, 0.3); transition: 0.2s; width: 100%; font-size: 16px; margin-bottom: 20px; }
+        .comm-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+        .btn-call { background: var(--info); color: white; border: none; padding: 14px; border-radius: 14px; font-weight: 800; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 14px; box-shadow: 0 4px 10px rgba(59,130,246,0.3); transition: 0.2s;}
         .btn-call:active { transform: scale(0.95); }
+        .btn-wa { background: var(--whatsapp); color: white; border: none; padding: 14px; border-radius: 14px; font-weight: 800; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 14px; box-shadow: 0 4px 10px rgba(37,211,102,0.3); transition: 0.2s;}
+        .btn-wa:active { transform: scale(0.95); }
 
-        .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
-        .st-box { background: var(--surface); padding: 16px; border-radius: 18px; border: 1px solid var(--border); box-shadow: 0 4px 10px rgba(0,0,0,0.02); }
-        .st-box h5 { font-size: 11px; color: var(--text-muted); margin-bottom: 6px; font-weight: 900; text-transform: uppercase; }
-        .st-box h3 { font-size: 19px; font-weight: 900; color: var(--primary); }
+        .schedule-table { width: 100%; border-collapse: collapse; font-size: 13px; font-weight: 600; margin-top: 10px; }
+        .schedule-table th, .schedule-table td { padding: 12px 10px; text-align: left; border-bottom: 1px solid var(--border); }
+        .schedule-table th { color: var(--text-muted); text-transform: uppercase; font-size: 10px; }
+        .tr-paid { color: var(--success); } .tr-pen { color: var(--danger); background: rgba(239,68,68,0.05); }
 
-        .history-box { background: var(--surface); padding: 20px; border-radius: 20px; border: 1px solid var(--border); height: 220px; overflow-y: auto; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.02); }
-        .h-item { display: flex; justify-content: space-between; padding: 14px 0; border-bottom: 1px dashed var(--border); font-size: 14px; font-weight: 800; }
-        .h-item:last-child { border: none; }
+        /* BUG 1 FIX: PERFECT ACTION ROW GRID - COLUMN LAYOUT FOR MOBILE */
+        .modal-sticky-footer { padding: 15px 20px; background: var(--surface); border-top: 1px solid var(--border); box-shadow: 0 -4px 20px rgba(0,0,0,0.05); }
+        .action-row { display: flex; flex-direction: column; gap: 10px; }
+        .btn-act { padding: 14px; border-radius: 12px; font-size: 14px; font-weight: 800; border: none; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px; transition: 0.2s; text-align: center; width: 100%; }
+        .btn-act:active { transform: scale(0.96); }
+
+        /* === ALERTS === */
+        .glass-alert { background: var(--surface); width: 85%; max-width: 320px; padding: 30px 20px; border-radius: 24px; text-align: center; margin: auto; box-shadow: var(--shadow-lg); border: 1px solid var(--border); animation: popIn 0.3s ease; }
+        .alert-icon { width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 28px; margin: 0 auto 15px; color: white; }
+        .alert-icon.success { background: var(--success); }
+        .alert-icon.warning { background: var(--danger); }
+
+        /* === BUG 2 FIX: PDF RENDER ZONE (100% OFFSCREEN SAFE & ABSOLUTE POSITIONED) === */
+        /* Hidden safely off-screen to avoid blank PDFs while preventing it from ruining the UI */
+        #pdf-render-zone {
+            position: absolute; top: 0; left: -9999px; width: 800px;
+            background: #ffffff; z-index: -100; opacity: 0; pointer-events: none; display: block;
+        }
+        .pdf-wrapper { padding: 40px; color: #111; border: 4px solid #06112A; position: relative; border-radius: 12px; background: #fff; }
+        .pdf-header { text-align: center; border-bottom: 5px solid #F5B041; padding-bottom: 15px; margin-bottom: 25px; }
+        .pdf-header h1 { font-size: 38px; color: #06112A; margin: 0 0 5px 0; text-transform: uppercase; font-weight: 900; }
+        .pdf-table { width: 100%; border-collapse: collapse; margin-bottom: 25px; font-size: 16px; }
+        .pdf-table th, .pdf-table td { padding: 12px; border-bottom: 1px solid #EEE; text-align: left; }
+        .pdf-table th { background: #F8FAFC; color: #06112A; font-weight: bold; width: 35%; }
+        .pdf-total-box { background: #06112A; color: #F5B041; padding: 15px; text-align: center; border-radius: 10px; margin: 15px 0; }
+        .pdf-total-box h2 { font-size: 40px; margin: 0; font-weight: 900; }
         
-        .action-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        .btn-act { padding: 18px; border-radius: 16px; font-size: 15px; font-weight: 900; border: none; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 6px; transition: 0.2s; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        .btn-act:active { transform: scale(0.95); }
+        /* Digital Signature output in PDF */
+        .sig-box-pdf { margin-top: 30px; text-align: right; }
+        .sig-box-pdf img { max-width: 200px; border-bottom: 1px solid #ccc; display: inline-block; }
 
-        /* MODERN POP-UP */
-        .glass-modal { background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); width: 85%; max-width: 340px; padding: 35px 25px; border-radius: 28px; text-align: center; margin: auto; animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); border: 1px solid rgba(255,255,255,0.5); box-shadow: 0 20px 50px rgba(0,0,0,0.2); }
-        .alert-icon { width: 70px; height: 70px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 32px; margin: 0 auto 20px; color: white; }
-        .alert-icon.success { background: var(--success); box-shadow: 0 8px 20px rgba(0, 184, 115, 0.4); }
-        .alert-icon.warning { background: var(--accent); box-shadow: 0 8px 20px rgba(247, 183, 49, 0.4); }
-        @keyframes popIn { 0% { transform: scale(0.7); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+        /* Loading Screen for PDF */
+        #pdf-loading-overlay { position: fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.8); z-index:99999; display:none; flex-direction:column; justify-content:center; align-items:center; color:white; }
 
-        /* === 7. PREMIUM PDF TEMPLATE === */
-        #pdf-render-zone { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.95); z-index: 5000; display: none; justify-content: center; align-items: center; overflow: hidden; }
-        .pdf-wrapper { background: #FFFFFF; width: 750px; padding: 45px; color: #111; border: 3px solid #040F2D; position: relative; border-radius: 12px; }
-        .pdf-wrapper::before { content: 'APPROVED'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-45deg); font-size: 110px; color: rgba(0, 184, 115, 0.04); font-weight: 900; z-index: 0; pointer-events: none; }
-        .pdf-header { text-align: center; border-bottom: 5px solid #F7B731; padding-bottom: 20px; margin-bottom: 35px; }
-        .pdf-header h1 { font-size: 42px; color: #040F2D; margin: 0 0 6px 0; text-transform: uppercase; font-weight: 900; letter-spacing: 2px; }
-        .pdf-header p { font-size: 16px; color: #555; margin: 0; font-weight: bold; }
-        .pdf-table { width: 100%; border-collapse: collapse; margin-bottom: 35px; font-size: 18px; }
-        .pdf-table th, .pdf-table td { padding: 14px; border-bottom: 1px solid #EEE; text-align: left; }
-        .pdf-table th { background: #F2F6F9; color: #040F2D; font-weight: bold; width: 38%; }
-        .pdf-table td { font-weight: bold; color: #333; }
-        .pdf-total-box { background: #040F2D; color: #F7B731; padding: 25px; text-align: center; border-radius: 14px; margin: 25px 0 45px; }
-        .pdf-total-box p { margin: 0 0 5px 0; font-size: 18px; color: #FFF; }
-        .pdf-total-box h2 { font-size: 48px; margin: 0; font-weight: 900; }
-        .pdf-footer { display: flex; justify-content: space-between; margin-top: 50px; font-size: 18px; font-weight: bold; color: #040F2D; }
-        .pdf-footer div { border-top: 2px solid #040F2D; padding-top: 12px; width: 240px; text-align: center; }
-
-        /* === 8. BOTTOM NAV === */
-        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--surface); display: flex; justify-content: space-around; padding: 18px 5px 25px; box-shadow: 0 -5px 25px rgba(0,0,0,0.06); z-index: 1000; border-top: 1px solid var(--border); border-top-left-radius: 24px; border-top-right-radius: 24px; }
-        .nav-item { display: flex; flex-direction: column; align-items: center; gap: 6px; color: var(--text-muted); font-size: 11px; font-weight: 800; cursor: pointer; flex: 1; transition: 0.3s; text-transform: uppercase; }
+        /* === BOTTOM TABS NAV === */
+        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--surface); border-top: 1px solid var(--border); display: flex; justify-content: space-around; padding: 12px 5px 20px; box-shadow: 0 -4px 20px rgba(0,0,0,0.05); z-index: 1000; border-top-left-radius: 24px; border-top-right-radius: 24px; }
+        .nav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; color: var(--text-muted); font-size: 10px; font-weight: 800; cursor: pointer; flex: 1; transition: 0.2s; text-transform: uppercase; }
         .nav-item.active { color: var(--primary); }
-        .nav-item.active i { color: var(--accent); transform: translateY(-5px); font-size: 22px; }
+        body.dark-mode .nav-item.active { color: var(--accent); }
+        .nav-item.active i { color: var(--accent); transform: translateY(-4px); font-size: 22px; }
         
         .view-section { display: none; animation: fadeIn 0.3s ease; }
         .view-section.active { display: block; }
         .admin-only { display: none; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+        @keyframes popIn { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
     </style>
 </head>
 <body>
 
-    <!-- SPLASH SCREEN -->
     <div id="splash-screen">
-        <div class="god-img-box">
-            <img src="1000072178.jpg" alt="God Image" onerror="this.style.display='none'; this.parentElement.innerHTML='<i class='fa-solid fa-om' style='font-size:80px; color:#F7B731;'></i>';">
+        <div class="god-round-box">
+            <img src="1000072682.jpg" alt="God Image" onerror="this.onerror=null; this.src='1000072677.png';">
         </div>
         <div class="splash-title">VS Group</div>
     </div>
 
-    <!-- LOGIN SCREEN -->
+    <div id="pdf-loading-overlay">
+        <i class="fa-solid fa-circle-notch fa-spin" style="font-size:50px; color:var(--accent); margin-bottom:20px;"></i>
+        <h2 style="font-weight:900; letter-spacing:1px;">Generating Secure PDF...</h2>
+    </div>
+
     <div id="login-screen">
         <div class="login-box">
             <h2>Welcome</h2>
-            <p>VS Fin Serv Premium System</p>
+            <p>Coscoom Corporate Console</p>
             <form onsubmit="handleLogin(event)">
-                <input type="text" id="loginUser" class="input-box" placeholder="Username" required>
-                <input type="password" id="loginPass" class="input-box" placeholder="Password" required>
-                <button type="submit" class="btn-login">Login System</button>
+                <input type="text" id="loginUser" class="input-box" placeholder="Admin/Manager Username" required>
+                <input type="password" id="loginPass" class="input-box" placeholder="Secret Password" required>
+                <button type="submit" class="btn-login" onclick="vibrateBtn()">Secure Login</button>
             </form>
         </div>
     </div>
 
-    <!-- MAIN APPLICATION VIEW -->
     <div id="main-app" style="display: none;">
         <header>
             <div>
                 <div class="h-title">VS Fin Serv</div>
                 <div class="h-sub" id="display-role">Admin</div>
             </div>
-            <button class="btn-logout" onclick="logout()"><i class="fa-solid fa-power-off"></i> Logout</button>
+            <div class="header-actions">
+                <button class="btn-icon-top" onclick="toggleTheme(); vibrateBtn();"><i id="theme-icon" class="fa-solid fa-moon"></i></button>
+                <button class="btn-logout" onclick="logout(); vibrateBtn();"><i class="fa-solid fa-power-off"></i></button>
+            </div>
         </header>
 
-        <!-- DASHBOARD TAB -->
         <div id="view-dashboard" class="view-section active container">
             <div class="hero-card">
-                <h3>Today's Collection Target</h3>
+                <h3>Today's Target Overview</h3>
                 <h2 id="dash-target">₹ 0</h2>
-                <div class="hero-date" id="live-date"><i class="fa-solid fa-calendar-day"></i> Loading Date...</div>
+                <div style="font-size: 12px; margin-top: 8px; opacity: 0.8;" id="live-date">Loading...</div>
             </div>
             
-            <div class="grid-4">
-                <div class="stat-box"><h4>Collected</h4><h3 class="c-green" id="dash-col">₹ 0</h3></div>
-                <div class="stat-box"><h4>Pending</h4><h3 class="c-red" id="dash-pen">₹ 0</h3></div>
-                <div class="stat-box"><h4>Disbursed</h4><h3 class="c-blue" id="dash-new">₹ 0</h3></div>
-                <div class="stat-box"><h4>Active Dues</h4><h3 style="color:var(--primary);" id="dash-active-count">0</h3></div>
+            <div class="stats-wrapper">
+                <div class="stat-box sb-col"><h4>Collected</h4><h3 class="c-green" id="dash-col">₹ 0</h3></div>
+                <div class="stat-box sb-pen"><h4>Pending</h4><h3 class="c-red" id="dash-pen">₹ 0</h3></div>
+                <div class="stat-box sb-dis"><h4>Disbursed</h4><h3 class="c-blue" id="dash-new">₹ 0</h3></div>
+                <div class="stat-box sb-rec"><h4>Recovery %</h4><h3 style="color:var(--teal);" id="dash-perc">0%</h3></div>
+                <div class="stat-box sb-act"><h4>Active Loans</h4><h3 style="color:var(--accent);" id="dash-active-count">0</h3></div>
             </div>
 
-            <h3 style="font-size: 18px; font-weight: 900; margin-bottom: 15px; color: var(--primary);">Today's Collection Pipeline</h3>
+            <div class="search-filter-container">
+                <div class="utility-row">
+                    <span class="tot-accounts" id="tot-acc-txt">Total Accounts: 0</span>
+                </div>
+                <div class="search-wrapper">
+                    <div class="search-box-inner">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" id="searchBar" class="search-input" placeholder="பெயர் / ஐடி / மொபைல்..." oninput="filterPipeline()">
+                    </div>
+                </div>
+                <div class="grid-2" style="margin-bottom:0;">
+                    <select id="filterDistrict" class="input-box" style="margin:0; padding:14px;" onchange="filterPipeline()"><option value="">அனைத்து மாவட்டங்கள்</option></select>
+                    <select id="filterAgent" class="input-box" style="margin:0; padding:14px;" onchange="filterPipeline()"><option value="">அனைத்து ஏஜென்ட்கள்</option></select>
+                </div>
+            </div>
+
+            <h3 style="font-size: 16px; font-weight: 800; margin-bottom: 12px; color: var(--primary);">Active Collection Workstream</h3>
             <div id="customer-list"></div>
         </div>
 
-        <!-- NEW ENTRY TAB -->
+        <div id="view-analytics" class="view-section container">
+            <div class="form-container">
+                <h3 style="font-size: 18px; margin-bottom: 15px;"><i class="fa-solid fa-chart-pie" style="color:var(--accent);"></i> Financial Portfolio</h3>
+                <div class="analytics-grid">
+                    <div class="stat-box"><h4 style="font-size:9px;">Portfolio Value</h4><h3 id="a-port" style="font-size:16px;">₹0</h3></div>
+                    <div class="stat-box"><h4 style="font-size:9px;">Principal Deployed</h4><h3 id="a-prin" style="font-size:16px; color:var(--info);">₹0</h3></div>
+                    <div class="stat-box"><h4 style="font-size:9px;">Expected Interest</h4><h3 id="a-int" style="font-size:16px; color:var(--success);">₹0</h3></div>
+                    <div class="stat-box"><h4 style="font-size:9px;">Average Loan</h4><h3 id="a-avg" style="font-size:16px;">₹0</h3></div>
+                </div>
+                <div style="display:flex; justify-content:space-around; margin-top:15px; border-top:1px solid var(--border); padding-top:15px;">
+                    <div style="text-align:center;"><div class="css-ring" id="ring-eff" style="--p:0%"><span id="txt-eff">0%</span></div><div style="font-size:10px; font-weight:800; margin-top:6px; color:var(--text-muted);">Efficiency</div></div>
+                    <div style="text-align:center;"><div class="css-ring" id="ring-npa" style="--p:0%; background: conic-gradient(var(--danger) var(--p), var(--bg) 0);"><span id="txt-npa">0%</span></div><div style="font-size:10px; font-weight:800; margin-top:6px; color:var(--text-muted);">NPA Rate</div></div>
+                </div>
+                <button class="btn-submit btn-outline" style="margin-top:20px; font-size:13px;" onclick="downloadCSVReport(); vibrateBtn();"><i class="fa-solid fa-file-csv"></i> Export Full Ledger Report</button>
+            </div>
+        </div>
+
         <div id="view-entry" class="view-section container">
             <div class="form-container">
-                <h3 style="font-size: 22px; font-weight: 900; margin-bottom: 25px; color: var(--primary);"><i class="fa-solid fa-file-signature" style="color:var(--accent);"></i> New Loan Disbursal</h3>
+                <h3><i class="fa-solid fa-file-signature" style="color:var(--accent);"></i> New Account</h3>
                 <form id="entryForm">
-                    <div class="grid-2">
-                        <div class="form-group">
-                            <label>Customer Name</label>
-                            <input type="text" id="cName" class="input-box" required placeholder="Full Name">
-                        </div>
-                        <div class="form-group">
-                            <label>Mobile Number</label>
-                            <input type="tel" id="cMobile" class="input-box" required placeholder="10 Digit Mobile" pattern="[0-9]{10}">
-                        </div>
+                    
+                    <div class="form-group">
+                        <label>Customer Photo (Optional)</label>
+                        <input type="file" id="cPhoto" accept="image/*" capture="environment" style="display:none;" onchange="handlePhoto(this)">
+                        
+                        <label for="cPhoto" class="photo-upload-box" onclick="vibrateBtn()" id="photo-label-box">
+                            <i class="fa-solid fa-camera"></i>
+                            <span id="photo-text">Take Customer Photo</span>
+                            <img id="photo-preview" src="" alt="preview">
+                            <button type="button" class="remove-photo" id="remove-photo-btn" onclick="removePhoto(event)"><i class="fa-solid fa-xmark"></i></button>
+                        </label>
                     </div>
 
                     <div class="grid-2">
-                        <div class="form-group">
-                            <label>Village/Town</label>
-                            <input type="text" id="cVillage" class="input-box" required placeholder="Ex: Edappadi">
-                        </div>
-                        <div class="form-group">
-                            <label>Line Route</label>
-                            <input type="text" id="cLine" class="input-box" required placeholder="Ex: Salem Main Route">
-                        </div>
+                        <div class="form-group"><label>Customer Full Name</label><input type="text" id="cName" class="input-box" required placeholder="Name"></div>
+                        <div class="form-group"><label>10 Digit Mobile</label><input type="tel" id="cMobile" class="input-box" required placeholder="Mobile No" pattern="[0-9]{10}"></div>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="form-group"><label>District</label><input type="text" id="cDistrict" class="input-box" required placeholder="District"></div>
+                        <div class="form-group"><label>Village/Town</label><input type="text" id="cVillage" class="input-box" required placeholder="Village"></div>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="form-group"><label>Collection Route Line</label><input type="text" id="cLine" class="input-box" required placeholder="Line"></div>
+                        <div class="form-group"><label>Assign Agent</label><select id="cAgent" class="input-box" required><option value="">Assign Agent</option></select></div>
                     </div>
                     
                     <div class="grid-2">
-                        <div class="form-group">
-                            <label>Date Given</label>
-                            <input type="date" id="cDate" class="input-box" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Time</label>
-                            <input type="time" id="cTime" class="input-box" required>
-                        </div>
+                        <div class="form-group"><label>Date</label><input type="date" id="cDate" class="input-box" required></div>
+                        <div class="form-group"><label>Time</label><input type="time" id="cTime" class="input-box" required></div>
                     </div>
 
                     <div class="grid-2">
-                        <div class="form-group">
-                            <label>Principal Amount (அசல்)</label>
-                            <input type="number" id="cPrincipal" class="input-box input-money" required oninput="calcEMI()" style="background:#F0FDF4; border-color:#00B873;">
-                        </div>
-                        <div class="form-group">
-                            <label>Interest Amount (வட்டி)</label>
-                            <input type="number" id="cInterest" class="input-box input-money" required oninput="calcEMI()" style="background:#FFF9E6; border-color:#F7B731;">
-                        </div>
+                        <div class="form-group"><label>Principal ₹</label><input type="number" id="cPrincipal" class="input-box input-money" required placeholder="Principal" oninput="calcEMI()"></div>
+                        <div class="form-group"><label>Interest ₹</label><input type="number" id="cInterest" class="input-box input-interest" required placeholder="Interest" oninput="calcEMI()"></div>
                     </div>
 
                     <div class="grid-2">
-                        <div class="form-group">
-                            <label>Due Interval</label>
+                        <div class="form-group"><label>Due Type</label>
                             <select id="cType" class="input-box" onchange="calcEMI()">
-                                <option value="Daily">Daily (தினசரி)</option>
-                                <option value="Weekly">Weekly (வாராந்திர)</option>
-                                <option value="Monthly">Monthly (மாதாந்திர)</option>
+                                <option value="Daily">Daily</option><option value="Weekly">Weekly</option><option value="Monthly">Monthly</option>
                             </select>
                         </div>
-                        <div class="form-group">
-                            <label>Total Number of Dues</label>
-                            <input type="number" id="cDuesCount" class="input-box" required oninput="calcEMI()">
+                        <div class="form-group"><label>Total Dues</label><input type="number" id="cDuesCount" class="input-box" required placeholder="Dues Count" oninput="calcEMI()"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Customer Signature (Digital)</label>
+                        <div class="sig-container">
+                            <div class="sig-header">
+                                <span style="font-size:11px; font-weight:800; color:var(--text-muted);">Sign Below</span>
+                                <button type="button" class="btn-clear-sig" onclick="clearSignature(); vibrateBtn();">Clear</button>
+                            </div>
+                            <canvas id="sig-canvas"></canvas>
                         </div>
                     </div>
 
-                    <div style="background: var(--surface); padding: 25px; border-radius: 16px; border: 2px dashed var(--accent); text-align: center; margin-bottom: 25px; box-shadow: 0 5px 15px rgba(247,183,49,0.08);">
-                        <span style="font-size: 13px; color: var(--text-muted); font-weight: 900; letter-spacing: 0.5px;">CALCULATED EMI PER DUE</span><br>
-                        <span id="prevEmi" style="font-size: 36px; font-weight: 900; color: var(--primary);">₹ 0</span>
+                    <div style="background: rgba(245, 176, 65, 0.05); padding: 20px; border-radius: 14px; border: 2px dashed var(--accent); text-align: center; margin-bottom: 20px;">
+                        <span style="font-size: 11px; font-weight: 800; color: var(--accent);">EMI PER INSTALLMENT</span><br>
+                        <span id="prevEmi" style="font-size: 28px; font-weight: 900; color: var(--primary);">₹ 0</span>
                     </div>
 
                     <div class="grid-2">
-                        <button type="button" class="btn-submit btn-outline" onclick="processNewEntry(false)"><i class="fa-solid fa-floppy-disk"></i> Save Data Only</button>
-                        <button type="button" class="btn-submit btn-primary" onclick="processNewEntry(true)"><i class="fa-solid fa-file-pdf"></i> Disburse & Download PDF</button>
+                        <button type="button" class="btn-submit btn-outline" onclick="processNewEntry(false); vibrateBtn();"><i class="fa-solid fa-floppy-disk"></i> Save Only</button>
+                        <button type="button" class="btn-submit btn-primary" onclick="processNewEntry(true); vibrateBtn();"><i class="fa-solid fa-file-pdf"></i> Save & PDF</button>
                     </div>
                 </form>
             </div>
         </div>
 
-        <!-- ADMIN PANEL TAB -->
         <div id="view-admin" class="view-section container">
-            <div class="hero-card" style="background: linear-gradient(135deg, var(--danger) 0%, #991B1B 100%); box-shadow: 0 10px 25px rgba(230,57,70,0.2);">
-                <h3>System Administration</h3>
-                <h2 style="color: white;">Security & Infrastructure</h2>
-            </div>
-            
-            <div style="background: var(--surface); padding: 25px; border-radius: 20px; margin-bottom: 30px; border: 1px solid var(--border); box-shadow: 0 5px 20px rgba(0,0,0,0.02);">
-                <h3 style="font-size: 18px; font-weight: 900; margin-bottom: 15px;"><i class="fa-solid fa-shield-halved" style="color:var(--primary);"></i> Permanent Ledger Data Security</h3>
-                <p style="font-size: 13px; color: var(--text-muted); font-weight: 700; margin-bottom: 20px;">ஒட்டுமொத்த கணக்கு விபரங்களையும் கோப்பாக (JSON) எடுத்து வைத்து எப்போது வேண்டுமானாலும் மீட்டமைக்கலாம்.</p>
+            <div class="form-container">
+                <h3 style="font-size: 16px; margin-bottom: 12px;"><i class="fa-solid fa-cloud" style="color:var(--info);"></i> Cloud Server Sync</h3>
                 <div class="grid-2">
-                    <button class="btn-submit btn-primary" style="padding:14px; font-size:15px;" onclick="exportData()"><i class="fa-solid fa-cloud-arrow-down"></i> Backup Data</button>
+                    <button class="btn-submit btn-primary" style="padding:14px; font-size:13px;" onclick="syncAllToCloud(); vibrateBtn();"><i class="fa-solid fa-cloud-arrow-up"></i> Sync Local to Cloud</button>
+                    <button class="btn-submit btn-outline" style="padding:14px; font-size:13px;" onclick="fetchFromCloud(); vibrateBtn();"><i class="fa-solid fa-cloud-arrow-down"></i> Restore from Cloud</button>
+                </div>
+            </div>
+
+            <div class="form-container">
+                <h3 style="font-size: 16px; margin-bottom: 12px;"><i class="fa-solid fa-shield-halved" style="color:var(--primary);"></i> Offline JSON Backup</h3>
+                <div class="grid-2">
+                    <button class="btn-submit btn-primary" style="padding:14px; font-size:13px; background:var(--danger); color:#fff;" onclick="exportData(); vibrateBtn();"><i class="fa-solid fa-download"></i> Local Backup</button>
                     <div>
                         <input type="file" id="importFile" style="display:none;" accept=".json" onchange="importData(event)">
-                        <button class="btn-submit btn-outline" style="padding:14px; font-size:15px;" onclick="document.getElementById('importFile').click()"><i class="fa-solid fa-cloud-arrow-up"></i> Restore Ledger</button>
+                        <button class="btn-submit btn-outline" style="padding:14px; font-size:13px; width:100%;" onclick="document.getElementById('importFile').click(); vibrateBtn();"><i class="fa-solid fa-upload"></i> Restore File</button>
                     </div>
                 </div>
             </div>
 
-            <h3 style="font-size: 18px; font-weight: 900; margin-bottom: 15px; color: var(--primary);">Create Manager Authentication (Max 10)</h3>
-            <form onsubmit="createManager(event)" style="margin-bottom: 30px;">
+            <form onsubmit="createManager(event)" class="form-container">
+                <h3 style="font-size: 16px; margin-bottom: 12px;">Authorize Executive</h3>
                 <div class="grid-2">
-                    <input type="text" id="newMgrUser" class="input-box" placeholder="Username" required>
-                    <input type="password" id="newMgrPass" class="input-box" placeholder="Password" required>
+                    <input type="text" id="newMgrName" class="input-box" placeholder="Full Name" required style="margin:0;">
+                    <input type="text" id="newMgrUser" class="input-box" placeholder="Username" required style="margin:0;">
+                    <input type="password" id="newMgrPass" class="input-box" placeholder="Password" required style="margin:0; grid-column:1 / -1;">
                 </div>
-                <button type="submit" class="btn-submit" style="background: var(--danger); color: white;">Create Executive</button>
+                <button type="submit" class="btn-submit" style="background: var(--primary); color: white; margin-top:12px;" onclick="vibrateBtn()">Add Manager</button>
             </form>
-            <h3 style="font-size: 18px; font-weight: 900; margin-bottom: 15px; color: var(--primary);">Active System Managers</h3>
             <div id="users-list"></div>
         </div>
 
-        <!-- NAVIGATION BAR -->
         <div class="bottom-nav">
-            <div class="nav-item active" onclick="switchNav('view-dashboard', this)"><i class="fa-solid fa-chart-pie"></i><span>Dashboard</span></div>
-            <div class="nav-item" onclick="switchNav('view-entry', this)"><i class="fa-solid fa-plus-circle"></i><span>New Loan</span></div>
-            <div class="nav-item admin-only" id="nav-admin" onclick="switchNav('view-admin', this)"><i class="fa-solid fa-user-shield"></i><span>Admin System</span></div>
+            <div class="nav-item active" onclick="switchNav('view-dashboard', this); vibrateBtn();"><i class="fa-solid fa-chart-pie"></i><span>Dash</span></div>
+            <div class="nav-item" onclick="switchNav('view-analytics', this); vibrateBtn();"><i class="fa-solid fa-chart-line"></i><span>Stats</span></div>
+            <div class="nav-item" onclick="switchNav('view-entry', this); vibrateBtn();"><i class="fa-solid fa-plus-circle"></i><span>New</span></div>
+            <div class="nav-item admin-only" id="nav-admin" onclick="switchNav('view-admin', this); vibrateBtn();"><i class="fa-solid fa-user-shield"></i><span>Admin</span></div>
         </div>
     </div>
 
-    <!-- CUSTOMER PROFILE EXPANDED MODAL -->
     <div class="modal-overlay" id="customer-modal">
         <div class="modal-content">
-            <div class="m-header">
-                <h2 id="m-name">Customer Ledger</h2>
-                <button class="btn-icon close" onclick="closeModal('customer-modal')"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-body-scroll">
+                <div class="m-header">
+                    <h2 style="font-size:20px;">Account Ledger</h2>
+                    <button class="btn-icon close" onclick="closeModal('customer-modal'); vibrateBtn();"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                
+                <div class="modal-tabs">
+                    <div class="m-tab active" id="tab-log" onclick="switchModalTab('log'); vibrateBtn();">Overview</div>
+                    <div class="m-tab" id="tab-sch" onclick="switchModalTab('sch'); vibrateBtn();">Schedule</div>
+                </div>
+
+                <div id="modal-content-log">
+                    <div style="background:var(--bg); padding: 15px; border-radius: 16px; font-size: 12px; font-weight: 700; margin-bottom: 15px; display: flex; gap: 8px; flex-wrap: wrap; border: 1px solid var(--border);">
+                        <div style="width:100%; display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+                            <img id="m-photo" class="c-photo-thumb" src="" style="display:none; width:45px; height:45px; border-radius:10px; object-fit:cover;">
+                            <div>
+                                <span style="font-size: 16px; font-weight: 900; color: var(--primary); display:block;" id="m-name">Name</span>
+                                <span style="font-size: 10px; color: var(--text-muted);"><b id="m-id">ID</b> | <span id="m-aging" style="padding:2px 6px; border-radius:4px;">Aging</span></span>
+                            </div>
+                        </div>
+                        <span style="width:100%;"><i class="fa-solid fa-map-location-dot" style="color:var(--danger);"></i> <b id="m-district">Dist</b> • <b id="m-village">Vil</b></span>
+                        <span><i class="fa-solid fa-route" style="color:var(--success);"></i> <b id="m-line">Line</b></span>
+                        <span><i class="fa-regular fa-calendar" style="color:var(--primary);"></i> <b id="m-start-date">Date</b></span>
+                    </div>
+
+                    <div class="comm-grid">
+                        <a href="#" id="m-call-btn" class="btn-call" onclick="vibrateBtn()"><i class="fa-solid fa-phone-volume"></i> Call</a>
+                        <a href="#" id="m-wa-btn" class="btn-wa" target="_blank" onclick="vibrateBtn()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px;">
+                        <div class="stat-box">
+                            <h5 style="font-size:9px; color:var(--text-muted);">Principal</h5><h3 id="m-principal" style="font-size:16px;">₹0</h3>
+                        </div>
+                        <div class="stat-box">
+                            <h5 style="font-size:9px; color:var(--text-muted);">Balance</h5><h3 id="m-bal" style="font-size:16px; color:var(--info);">₹0</h3>
+                        </div>
+                        <div class="stat-box">
+                            <h5 style="font-size:9px; color:var(--text-muted);">Paid Dues</h5><h3 style="font-size:16px;"><span id="m-paid-dues" class="c-green">0</span> / <span id="m-tot-dues">0</span></h3>
+                        </div>
+                        <div class="stat-box" style="background:rgba(239,68,68,0.05); border-color:rgba(239,68,68,0.2);">
+                            <h5 style="font-size:9px; color:var(--danger);">Overdue</h5><h3 id="m-overdue" style="font-size:16px; color:var(--danger);">₹0</h3>
+                        </div>
+                    </div>
+
+                    <div style="background:var(--bg); border:1px solid var(--border); padding: 12px; border-radius: 16px; min-height: 150px; max-height: 200px; overflow-y: auto; margin-bottom: 15px;" id="m-history"></div>
+                </div>
+
+                <div id="modal-content-sch" style="display:none; overflow-y:auto; flex-grow:1;">
+                    <table class="schedule-table" id="sch-table"></table>
+                </div>
             </div>
             
-            <div class="c-details-row">
-                <span><i class="fa-solid fa-id-badge" style="color:var(--accent);"></i> <b id="m-id">ID</b></span>
-                <span><i class="fa-solid fa-location-dot" style="color:var(--danger);"></i> <b id="m-village">Village</b></span>
-                <span><i class="fa-solid fa-route" style="color:var(--success);"></i> <b id="m-line">Line</b></span>
-                <span><i class="fa-regular fa-calendar" style="color:var(--primary);"></i> <b id="m-start-date">Date</b></span>
+            <div class="modal-sticky-footer">
+                <div class="action-row" id="m-actions"></div>
             </div>
-
-            <!-- DIRECT TELEPHONY INTEGRATION -->
-            <a href="#" id="m-call-btn" class="btn-call"><i class="fa-solid fa-phone-volume"></i> CALL REGISTERED MOBILE</a>
-
-            <div class="stat-grid">
-                <div class="st-box"><h5>Disbursed Principal</h5><h3 id="m-principal">₹0</h3></div>
-                <div class="st-box"><h5>Total Due Balance</h5><h3 id="m-total">₹0</h3></div>
-                <div class="st-box"><h5>Total Recovered (வரவு)</h5><h3 id="m-paid-amt" style="color:var(--success);">₹0</h3></div>
-                <div class="st-box"><h5>Net Outstanding</h5><h3 id="m-bal">₹0</h3></div>
-                <div class="st-box"><h5>Completed Installments</h5><h3><span id="m-paid-dues">0</span> / <span id="m-tot-dues">0</span></h3></div>
-                <div class="st-box" style="background:#FFF5F5; border-color:#FEE2E2;"><h5>Current Overdue (பெண்டிங்)</h5><h3 id="m-overdue" style="color:var(--danger);">₹0</h3></div>
-            </div>
-
-            <h4 style="font-size: 16px; font-weight: 900; margin-bottom: 12px; color: var(--primary);">Installment Recovery History</h4>
-            <div class="history-box" id="m-history"></div>
-
-            <div class="action-row" id="m-actions"></div>
         </div>
     </div>
 
-    <!-- NOTIFICATION DIALOG -->
-    <div class="modal-overlay" id="alert-modal" style="z-index: 4000; align-items: center;">
-        <div class="glass-modal">
+    <div class="modal-overlay" id="alert-modal" style="z-index: 5000; align-items: center;">
+        <div class="glass-alert">
             <div class="alert-icon success" id="alert-icon"><i class="fa-solid fa-check"></i></div>
-            <h2 id="alert-title" style="color: var(--primary); font-weight: 900; font-size: 24px;">Approved</h2>
-            <p id="alert-msg" style="color: var(--text-muted); font-size: 14px; font-weight: 800; margin-top: 12px;">Process successfully written.</p>
+            <h2 id="alert-title" style="font-weight: 900; font-size: 20px;">Approved</h2>
+            <p id="alert-msg" style="font-size: 13px; font-weight: 700; margin-top: 8px; color:var(--text-muted);"></p>
         </div>
     </div>
 
-    <!-- STABLE CLIENT-SIDE PDF RENDERING CANVASES -->
     <div id="pdf-render-zone">
-        <div style="position:absolute; top:40%; left:50%; transform:translate(-50%,-50%); text-align:center; z-index:9999;">
-            <i class="fa-solid fa-circle-notch fa-spin" style="font-size:50px; color:var(--accent); margin-bottom:20px;"></i>
-            <h2 style="color:var(--primary); font-weight:900;">Generating Secure PDF Bill...</h2>
-        </div>
-        
         <div class="pdf-wrapper" id="pdf-content">
             <div class="pdf-header">
-                <h1>VS Fin Serv</h1>
-                <p>Official Finance Ledger Receipt & Statement</p>
+                <h1 style="font-size:32px; color:#030A1E; margin-bottom:5px;">VS Fin Serv</h1>
+                <p style="margin:0;">Payment Receipt & Ledger Statement</p>
             </div>
             <table class="pdf-table">
-                <tr><th>Customer Account ID</th><td id="pdf-id"></td></tr>
-                <tr><th>Transaction Timestamp</th><td id="pdf-date"></td></tr>
-                <tr><th>Customer Name</th><td id="pdf-name"></td></tr>
-                <tr><th>Registered Mobile</th><td id="pdf-mobile"></td></tr>
-                <tr><th>Village & Line Destination</th><td id="pdf-location"></td></tr>
-                <tr><th>Disbursal Class / Due Type</th><td id="pdf-type"></td></tr>
-                <tr><th>Ledger Description</th><td id="pdf-desc"></td></tr>
+                <tr><th>Customer ID</th><td id="pdf-id"></td></tr>
+                <tr><th>Date</th><td id="pdf-date"></td></tr>
+                <tr><th>Name</th><td id="pdf-name"></td></tr>
+                <tr><th>Mobile</th><td id="pdf-mobile"></td></tr>
+                <tr><th>Details</th><td id="pdf-desc"></td></tr>
             </table>
-            
             <div class="pdf-total-box">
-                <p>Transaction / Settlement Amount</p>
-                <h2 id="pdf-amount">₹ 0</h2>
+                <p style="margin:0; font-size:14px; color:#fff;">Amount</p>
+                <h2 id="pdf-amount" style="margin:0; font-size:32px;">₹ 0</h2>
             </div>
-            
-            <div class="pdf-footer">
-                <div>Customer End Signature</div>
-                <div>Authorized Fin Serv Signatory</div>
+            <div class="sig-box-pdf" id="pdf-sig-container" style="display:none;">
+                <p style="font-size: 14px; font-weight: bold; margin-bottom: 5px;">Customer Signature:</p>
+                <img id="pdf-sig-img" src="" style="max-height: 80px;">
             </div>
         </div>
     </div>
 
-    <!-- ENHANCED ARCHITECTURE CORE ENGINE -->
     <script>
-        let db = JSON.parse(localStorage.getItem("vs_fin_serv_data_v5")) || [];
-        let usersDB = JSON.parse(localStorage.getItem("vs_fin_serv_users_v5")) || [{ user: 'anantharajmech', pass: 'admin123', role: 'admin' }];
+        // --- FIREBASE CONFIGURATION ---
+        const firebaseConfig = {
+            apiKey: "AIzaSyABZEMRcWkAD9F-OMgzeZ9m5sTx7Pe4TXI",
+            authDomain: "vs-group-b02e2.firebaseapp.com",
+            projectId: "vs-group-b02e2",
+            storageBucket: "vs-group-b02e2.firebasestorage.app",
+            messagingSenderId: "696893590406",
+            appId: "1:696893590406:web:6be887452cb8b6ab9fba07"
+        };
+        
+        // CHROME CRASH PREVENTION: Try-Catch for Firebase
+        let firestore = null;
+        try {
+            firebase.initializeApp(firebaseConfig);
+            firestore = firebase.firestore();
+        } catch(e) { console.log("Firebase Init Error (Local File):", e); }
+
+        // --- LOCAL STORAGE KEYS ---
+        const CORE_DB_KEY = "vs_fin_serv_master_live_v2";
+        const CORE_AUTH_KEY = "vs_fin_serv_auth_live_v2";
+        
+        let db = JSON.parse(localStorage.getItem(CORE_DB_KEY)) || [];
+        let usersDB = JSON.parse(localStorage.getItem("vs_fin_users_live_v2")) || [{ user: 'anantharajmech', pass: 'admin123', role: 'admin', name: 'Master Admin' }];
         let currentUser = null;
         let activeIdx = null;
-        let todayStr = new Date().toLocaleDateString('en-CA');
+        let todayStr = new Date().toLocaleDateString('en-CA'); 
+        let tempPhotoB64 = "";
+        let tempSigB64 = "";
+
+        // PWA Manifest Injector
+        const manifestData = {
+            "name": "VS Fin Serv", "short_name": "VS Fin", "display": "standalone",
+            "background_color": "#F8FAFC", "theme_color": "#06112A"
+        };
+        document.getElementById('manifest-placeholder').setAttribute('href', 'data:application/manifest+json;charset=utf-8,' + encodeURIComponent(JSON.stringify(manifestData)));
+
+        // Haptic Feedback function
+        function vibrateBtn() {
+            if ("vibrate" in navigator) { navigator.vibrate(40); }
+        }
 
         document.addEventListener("DOMContentLoaded", () => {
             resetDateTime();
-            // Set dynamic header live date
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            document.getElementById("live-date").innerText = new Date().toLocaleDateString('en-IN', options);
+            document.getElementById("live-date").innerHTML = `<i class="fa-solid fa-calendar-day"></i> ` + new Date().toLocaleDateString('en-IN', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+
+            if(localStorage.getItem('vs_dark_mode') === 'true') {
+                document.body.classList.add('dark-mode');
+                document.getElementById('theme-icon').classList.replace('fa-moon', 'fa-sun');
+            }
 
             setTimeout(() => {
                 document.getElementById("splash-screen").style.opacity = '0';
                 setTimeout(() => {
                     document.getElementById("splash-screen").style.display = 'none';
-                    checkSession(); 
+                    checkSession(); // Permanent Login Check
                 }, 500);
-            }, 2000);
+            }, 2500);
+
+            // Beautiful Photo Capture Logic
+            document.getElementById('cPhoto').addEventListener('change', function(e){
+                let file = e.target.files[0];
+                if(file){
+                    let reader = new FileReader();
+                    reader.onload = function(evt) { 
+                        tempPhotoB64 = evt.target.result; 
+                        document.getElementById('photo-preview').src = tempPhotoB64;
+                        document.getElementById('photo-preview').style.display = 'block';
+                        document.getElementById('photo-text').style.display = 'none';
+                        document.querySelector('.photo-upload-box i').style.display = 'none';
+                        document.getElementById('remove-photo-btn').style.display = 'block';
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            // Init Digital Signature Pad
+            initSignaturePad();
         });
+
+        function removePhoto(e) {
+            if(e) { e.preventDefault(); e.stopPropagation(); }
+            tempPhotoB64 = "";
+            document.getElementById('cPhoto').value = "";
+            document.getElementById('photo-preview').style.display = 'none';
+            document.getElementById('photo-preview').src = "";
+            document.getElementById('photo-text').style.display = 'block';
+            document.querySelector('.photo-upload-box i').style.display = 'block';
+            document.getElementById('remove-photo-btn').style.display = 'none';
+            vibrateBtn();
+        }
+
+        // --- DIGITAL SIGNATURE LOGIC ---
+        let canvas, ctx, drawing = false;
+        function initSignaturePad() {
+            canvas = document.getElementById('sig-canvas');
+            ctx = canvas.getContext('2d');
+            setTimeout(() => {
+                canvas.width = canvas.parentElement.clientWidth;
+                canvas.height = 150;
+                ctx.lineWidth = 3;
+                ctx.lineCap = 'round';
+                ctx.strokeStyle = '#040D21';
+            }, 100);
+
+            // Mouse Events
+            canvas.addEventListener('mousedown', (e) => { drawing = true; ctx.beginPath(); ctx.moveTo(e.offsetX, e.offsetY); });
+            canvas.addEventListener('mousemove', (e) => { if(drawing) { ctx.lineTo(e.offsetX, e.offsetY); ctx.stroke(); } });
+            canvas.addEventListener('mouseup', () => { drawing = false; tempSigB64 = canvas.toDataURL(); });
+            canvas.addEventListener('mouseout', () => { drawing = false; });
+
+            // Touch Events (Mobile)
+            canvas.addEventListener('touchstart', (e) => { 
+                e.preventDefault(); drawing = true; 
+                let touch = e.touches[0];
+                let rect = canvas.getBoundingClientRect();
+                ctx.beginPath(); ctx.moveTo(touch.clientX - rect.left, touch.clientY - rect.top); 
+            });
+            canvas.addEventListener('touchmove', (e) => { 
+                e.preventDefault();
+                if(drawing) { 
+                    let touch = e.touches[0];
+                    let rect = canvas.getBoundingClientRect();
+                    ctx.lineTo(touch.clientX - rect.left, touch.clientY - rect.top); ctx.stroke(); 
+                } 
+            });
+            canvas.addEventListener('touchend', () => { drawing = false; tempSigB64 = canvas.toDataURL(); });
+        }
+
+        function clearSignature() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            tempSigB64 = "";
+        }
+
+        function toggleTheme() {
+            let isDark = document.body.classList.toggle('dark-mode');
+            let icon = document.getElementById('theme-icon');
+            if(isDark) { icon.classList.replace('fa-moon', 'fa-sun'); localStorage.setItem('vs_dark_mode', 'true'); } 
+            else { icon.classList.replace('fa-sun', 'fa-moon'); localStorage.setItem('vs_dark_mode', 'false'); }
+        }
 
         function resetDateTime() {
             let now = new Date();
@@ -438,9 +696,9 @@
             document.getElementById('cTime').value = now.toTimeString().split(' ')[0].substring(0,5);
         }
 
-        // PERMANENT SYSTEM AUTHENTICATION LOGIC
+        // PERMANENT LOGIN
         function checkSession() {
-            let sessionUser = localStorage.getItem('vs_fin_serv_auth_active');
+            let sessionUser = localStorage.getItem(CORE_AUTH_KEY);
             if(sessionUser) { 
                 currentUser = JSON.parse(sessionUser); 
                 initApp(); 
@@ -457,94 +715,172 @@
             
             if(validUser) {
                 currentUser = validUser;
-                localStorage.setItem('vs_fin_serv_auth_active', JSON.stringify(currentUser)); // Session lockdown survival
+                localStorage.setItem(CORE_AUTH_KEY, JSON.stringify(currentUser));
                 document.getElementById('login-screen').style.display = 'none';
                 initApp();
-            } else {
-                showAlert('warning', 'Access Denied', 'தவறான Username அல்லது Password!');
-            }
+            } else { showAlert('warning', 'Access Denied', 'தவறான Username அல்லது Password!'); }
+            vibrateBtn();
         }
 
-        function logout() { 
-            localStorage.removeItem('vs_fin_serv_auth_active'); 
-            location.reload(); 
-        }
+        function logout() { localStorage.removeItem(CORE_AUTH_KEY); location.reload(); }
 
         function initApp() {
             document.getElementById("main-app").style.display = 'block';
-            document.getElementById("display-role").innerText = currentUser.role;
+            document.getElementById("display-role").innerText = currentUser.role.toUpperCase();
             if(currentUser.role === 'admin') document.getElementById('nav-admin').style.display = 'flex';
             
-            // Check cross-day boundaries to refresh unpaid state pipeline
-            if(localStorage.getItem("vs_fin_serv_last_calendar") !== todayStr) {
+            if(localStorage.getItem("vs_fin_cal_live_v2") !== todayStr) {
                 db.forEach(c => { if(c.duesPaid < c.totalDues) c.statusToday = 'unpaid'; });
-                localStorage.setItem("vs_fin_serv_last_calendar", todayStr);
+                localStorage.setItem("vs_fin_cal_live_v2", todayStr);
                 saveDB();
             }
+            populateFilters();
             renderDashboard();
             if(currentUser.role === 'admin') renderAdmin();
         }
 
-        function saveDB() { localStorage.setItem("vs_fin_serv_data_v5", JSON.stringify(db)); }
+        function saveDB() { localStorage.setItem(CORE_DB_KEY, JSON.stringify(db)); }
+
+        // FIREBASE CLOUD SYNC LOGIC
+        function syncAllToCloud() {
+            if(!firestore) { showAlert('warning', 'Offline Mode', 'Google Chrome Local File Restriction.'); return; }
+            showAlert('info', 'Syncing Data', 'Uploading to Cloud...');
+            let batch = firestore.batch();
+            db.forEach(c => {
+                let docRef = firestore.collection("customers").doc(c.id);
+                batch.set(docRef, c);
+            });
+            batch.commit().then(() => { showAlert('success', 'Cloud Synced', 'All data secured in cloud.'); })
+            .catch(err => { showAlert('warning', 'Sync Failed', 'Check internet connection.'); });
+        }
+        
+        function fetchFromCloud() {
+            if(!firestore) { showAlert('warning', 'Offline Mode', 'Google Chrome Local File Restriction.'); return; }
+            showAlert('info', 'Restoring Data', 'Fetching from Cloud...');
+            firestore.collection("customers").get().then((querySnapshot) => {
+                let cloudData = [];
+                querySnapshot.forEach((doc) => { cloudData.push(doc.data()); });
+                if(cloudData.length > 0) {
+                    db = cloudData; saveDB(); populateFilters(); renderDashboard();
+                    showAlert('success', 'Data Restored', 'Successfully restored from cloud.');
+                } else { showAlert('warning', 'Empty Cloud', 'No data found in cloud.'); }
+            }).catch(err => { showAlert('warning', 'Restore Failed', 'Check internet connection.'); });
+        }
 
         function switchNav(viewId, element) {
             document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
             document.getElementById(viewId).classList.add('active');
             element.classList.add('active');
-            if(viewId === 'view-dashboard') renderDashboard();
+            if(viewId === 'view-dashboard') { 
+                document.getElementById("searchBar").value = "";
+                populateFilters(); 
+                renderDashboard(); 
+            }
+            if(viewId === 'view-analytics') { renderAnalytics(); }
+            if(viewId === 'view-entry') { 
+                setTimeout(() => { canvas.width = canvas.parentElement.clientWidth; }, 100);
+            }
         }
 
-        // FULL SECURE STORAGE FORWARD COMPATIBILITY (Backup & Restore)
-        function exportData() {
-            let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(db));
-            let dl = document.createElement('a'); dl.setAttribute("href", dataStr); dl.setAttribute("download", `VS_Fin_Ledger_Backup_${todayStr}.json`);
-            document.body.appendChild(dl); dl.click(); dl.remove();
-            showAlert('success', 'Backup Exported', 'தரவுகள் பாதுகாப்பாக கோப்பாக மாற்றப்பட்டது.');
-        }
-
-        function importData(event) {
-            let file = event.target.files[0]; if(!file) return;
-            let reader = new FileReader();
-            reader.onload = function(e) {
-                try {
-                    let importedDB = JSON.parse(e.target.result);
-                    if(Array.isArray(importedDB)) { 
-                        db = importedDB; saveDB(); renderDashboard(); 
-                        showAlert('success', 'Ledger Restored', 'தரவுகள் முழுமையாக மீட்டமைக்கப்பட்டது.'); 
-                    }
-                } catch (err) { showAlert('warning', 'Parsing Error', 'தவறான கோப்பு அமைப்பு.'); }
-            }; reader.readAsText(file);
+        function animateValue(obj, start, end, duration, isCurrency = false) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                const ease = 1 - Math.pow(1 - progress, 3); 
+                let current = Math.floor(progress * (end - start) + start);
+                
+                if(obj.id.includes('perc')) obj.innerText = current + '%';
+                else if(isCurrency) obj.innerText = '₹ ' + current.toLocaleString('en-IN');
+                else obj.innerText = current;
+                
+                if (progress < 1) { window.requestAnimationFrame(step); }
+            };
+            window.requestAnimationFrame(step);
         }
 
         function createManager(e) {
             e.preventDefault();
-            if(usersDB.length >= 11) { showAlert('warning', 'Limit Breached', 'அதிகபட்சம் 10 பயனர்கள் மட்டுமே அனுமதிக்கப்படுவர்.'); return; }
-            let u = document.getElementById('newMgrUser').value; let p = document.getElementById('newMgrPass').value;
-            if(usersDB.find(x => x.user === u)) { showAlert('warning', 'Duplicate Identity', 'இந்த பயனர் பெயர் ஏற்கனவே உள்ளது.'); return; }
-            usersDB.push({ user: u, pass: p, role: 'manager' }); localStorage.setItem("vs_fin_serv_users_v5", JSON.stringify(usersDB));
-            document.getElementById('newMgrUser').value = ''; document.getElementById('newMgrPass').value = '';
-            showAlert('success', 'User Authorized', 'புதிய கணக்கு வெற்றிகரமாக உருவாக்கப்பட்டது.'); renderAdmin();
+            if(usersDB.length >= 11) { showAlert('warning', 'Limit Reached', 'Max accounts limit reached.'); return; }
+            let n = document.getElementById('newMgrName').value;
+            let u = document.getElementById('newMgrUser').value; 
+            let p = document.getElementById('newMgrPass').value;
+            if(usersDB.find(x => x.user === u)) { showAlert('warning', 'Duplicate', 'Username already exists.'); return; }
+            usersDB.push({ user: u, pass: p, role: 'manager', name: n }); 
+            localStorage.setItem("vs_fin_users_live_v2", JSON.stringify(usersDB));
+            document.getElementById('newMgrName').value = ''; document.getElementById('newMgrUser').value = ''; document.getElementById('newMgrPass').value = '';
+            showAlert('success', 'Authorized', 'Manager added successfully.'); 
+            renderAdmin(); populateFilters(); 
         }
 
         function renderAdmin() {
-            let html = ""; usersDB.forEach(u => { html += `<div class="list-card" style="padding:18px;"><div class="lc-name" style="font-size:15px;">${u.user} <span class="badge" style="background:#040F2D; color:#F7B731;">${u.role}</span></div><div class="lc-sub">Key Management Hash: ${u.pass}</div></div>`; });
+            let html = "";
+            usersDB.forEach((u, i) => {
+                html += `
+                <div class="list-card glass-panel" style="padding:18px; margin:0 0 12px 0; border-left: 6px solid ${u.role==='admin' ? '#F5B041' : '#007AFF'}; transform:none; box-shadow:none;">
+                    <div>
+                        <div class="lc-name" style="font-size:17px; margin-bottom:5px;">
+                            ${u.name || u.user} 
+                            <span class="badge" style="background:${u.role==='admin'?'var(--primary)':'#EFF6FF'}; color:${u.role==='admin'?'var(--accent)':'#1D4ED8'};">${u.role}</span>
+                        </div>
+                        <div class="lc-sub" style="font-size:12px;">
+                            <i class="fa-solid fa-at"></i> ${u.user}  |  <i class="fa-solid fa-key"></i> ${'●'.repeat(u.pass.length)}
+                        </div>
+                    </div>
+                    ${u.role !== 'admin' ? `<button onclick="deleteManager(${i})" style="background:rgba(239,68,68,0.1); color:var(--danger); border:none; width:45px; height:45px; border-radius:12px; font-weight:900; cursor:pointer;"><i class="fa-solid fa-trash"></i></button>` : ''}
+                </div>`;
+            });
             document.getElementById('users-list').innerHTML = html;
         }
 
-        // RECOVERY CALCULATIONS ENGINE
+        function deleteManager(idx) {
+            if(usersDB[idx].role === 'admin') { showAlert('warning', 'Protected', 'Admin account cannot be deleted.'); return; }
+            usersDB.splice(idx, 1);
+            localStorage.setItem("vs_fin_users_live_v2", JSON.stringify(usersDB));
+            renderAdmin(); populateFilters();
+            showAlert('success', 'Removed', 'Manager account deleted successfully.');
+        }
+
         function calcEMI() {
             let p = parseFloat(document.getElementById('cPrincipal').value) || 0;
             let i = parseFloat(document.getElementById('cInterest').value) || 0;
             let d = parseInt(document.getElementById('cDuesCount').value) || 1;
-            document.getElementById('prevEmi').innerText = `₹ ${Math.round((p+i)/d)}`;
+            document.getElementById('prevEmi').innerText = `₹ ${Math.round((p+i)/d).toLocaleString('en-IN')}`;
+        }
+
+        function populateFilters() {
+            let districtSelect = document.getElementById("filterDistrict");
+            let agentSelect = document.getElementById("filterAgent");
+            let cAgentForm = document.getElementById("cAgent");
+            
+            let districts = new Set();
+            db.forEach(c => { if(c.district) districts.add(c.district.trim()); });
+
+            let currentDist = districtSelect.value;
+            districtSelect.innerHTML = '<option value="">அனைத்து மாவட்டங்கள்</option>';
+            districts.forEach(d => { districtSelect.innerHTML += `<option value="${d}">${d}</option>`; });
+            districtSelect.value = currentDist;
+
+            let currentAgent = agentSelect.value;
+            agentSelect.innerHTML = '<option value="">அனைத்து ஏஜென்ட்கள்</option>';
+            cAgentForm.innerHTML = '<option value="">Assign Agent</option>';
+            usersDB.forEach(u => { 
+                let n = u.name || u.user;
+                agentSelect.innerHTML += `<option value="${n}">${n}</option>`; 
+                cAgentForm.innerHTML += `<option value="${n}">${n}</option>`; 
+            });
+            agentSelect.value = currentAgent;
         }
 
         function processNewEntry(needsPDF) {
+            let form = document.getElementById('entryForm');
+            if(!form.checkValidity()) { form.reportValidity(); return; }
+
             let name = document.getElementById('cName').value; let mobile = document.getElementById('cMobile').value;
             let prin = document.getElementById('cPrincipal').value; let dues = document.getElementById('cDuesCount').value;
-
-            if(!name || !mobile || !prin || !dues) { showAlert('warning', 'Validation Error', 'அனைத்து முக்கிய புலங்களையும் நிரப்பவும்.'); return; }
+            let district = document.getElementById('cDistrict').value; let line = document.getElementById('cLine').value;
+            let agent = document.getElementById('cAgent').value;
 
             let p = parseFloat(prin); let i = parseFloat(document.getElementById('cInterest').value) || 0;
             let d = parseInt(dues); let total = p + i; let emi = Math.round(total/d);
@@ -554,127 +890,198 @@
             let autoId = "VS-" + Math.floor(1000 + Math.random() * 9000);
 
             let c = {
-                id: autoId, name: name, mobile: mobile, village: document.getElementById('cVillage').value, line: document.getElementById('cLine').value,
+                id: autoId, name: name, mobile: mobile, district: district, village: document.getElementById('cVillage').value, line: line,
                 type: document.getElementById('cType').value, principal: p, totalAmount: total, emi: emi, totalDues: d, duesPaid: 0, overdueAmount: 0,
-                statusToday: 'unpaid', startDate: customDateStr, entryDate: todayStr, history: []
+                statusToday: 'unpaid', startDate: customDateStr, entryDate: todayStr, history: [],
+                agent: agent, photo: tempPhotoB64, signature: tempSigB64 
             };
 
-            db.unshift(c); saveDB();
+            db.unshift(c); 
+            saveDB();
+            if(firestore) { try { firestore.collection("customers").doc(c.id).set(c).catch(e=>{}); } catch(e){} }
+            
+            // RESET EVERYTHING
             document.getElementById('entryForm').reset(); calcEMI(); resetDateTime();
+            removePhoto(); 
+            clearSignature();
             
             if(needsPDF) {
-                showAlert('success', 'Account Created', 'சப்ளை பில் பிடிஎஃப் தயார் செய்யப்படுகிறது...');
-                generatePDF(c, "Disbursal Contract & Opening Invoice", `₹ ${c.principal}`);
-            } else { showAlert('success', 'Ledger Written', 'கஸ்டமர் கணக்கு சேமிக்கப்பட்டது.'); }
+                showAlert('success', 'Account Disbursed', 'பில் பதிவிறக்கம் செய்யப்படுகிறது...');
+                generatePDF(c, "Loan Disbursement Contract Invoice Statement", `₹ ${c.principal.toLocaleString('en-IN')}`);
+            } else { showAlert('success', 'Ledger Logged', 'வாடிக்கையாளர் கணக்கு வெற்றிகரமாக சேமிக்கப்பட்டது.'); }
             
-            setTimeout(() => { document.querySelectorAll('.nav-item')[0].click(); }, 1500);
+            setTimeout(() => { 
+                document.getElementById("searchBar").value = "";
+                populateFilters(); switchNav('view-dashboard', document.querySelectorAll('.nav-item')[0]); 
+            }, 1200);
         }
 
-        // PIPELINE & MATRIX GRAPH GENERATOR
-        function renderDashboard() {
-            let tTarget = 0, tCol = 0, tPen = 0, tNew = 0, activeAccountsCount = 0; let html = "";
+        function calculateAging(c) {
+            let start = new Date(c.startDate.split(',')[0]); 
+            let intervalDays = c.type === 'Daily' ? 1 : (c.type === 'Weekly' ? 7 : 30);
+            let nextDue = new Date(start.getTime() + (c.duesPaid * intervalDays * 24 * 60 * 60 * 1000));
+            let todayDate = new Date();
+            let diffDays = Math.floor((todayDate - nextDue) / (1000 * 60 * 60 * 24));
+            
+            let dueText = ""; let dueColor = ""; let agingClass = "";
+            if(diffDays < 0) { dueText = `Due in ${Math.abs(diffDays)}d`; dueColor = "var(--text-muted)"; agingClass="Recent"; }
+            else if(diffDays === 0) { dueText = "Due TODAY"; dueColor = "var(--danger)"; agingClass="Recent"; }
+            else {
+                dueText = `Overdue ${diffDays}d`; dueColor = "var(--danger)";
+                if(diffDays <= 7) agingClass = "Recent";
+                else if(diffDays <= 30) agingClass = "Moderate";
+                else if(diffDays <= 90) agingClass = "Critical";
+                else agingClass = "NPA Risk ☠️";
+            }
+            return { text: dueText, color: dueColor, aging: agingClass, diff: diffDays };
+        }
+
+        function renderDashboard() { filterPipeline(); }
+
+        function filterPipeline() {
+            let searchKeyword = document.getElementById("searchBar").value.toLowerCase().trim();
+            let selectedDistrict = document.getElementById("filterDistrict").value;
+            let selectedAgent = document.getElementById("filterAgent").value;
+
+            let tTarget = 0, tCol = 0, tPen = 0, tNew = 0, activeAccounts = 0; let html = "";
 
             db.forEach((c, idx) => {
                 if(c.entryDate === todayStr) tNew += c.principal;
                 if(c.duesPaid >= c.totalDues) return; 
 
-                activeAccountsCount++;
-                let dueAmt = c.emi + c.overdueAmount; tTarget += dueAmt;
-                let isPaid = c.statusToday === 'paid'; let isPending = c.overdueAmount > 0;
+                if(currentUser.role !== 'admin' && c.agent !== (currentUser.name || currentUser.user)) return;
 
-                if(isPaid) tCol += dueAmt; if(c.statusToday === 'pending') tPen += dueAmt;
+                let matchesSearch = !searchKeyword || (c.name?.toLowerCase().includes(searchKeyword)) || (c.id?.toLowerCase().includes(searchKeyword)) || (String(c.mobile).includes(searchKeyword));
+                let matchesDistrict = !selectedDistrict || c.district === selectedDistrict;
+                let matchesAgent = !selectedAgent || c.agent === selectedAgent;
 
-                html += `
-                    <div class="list-card ${isPending ? 'overdue' : ''} ${isPaid ? 'completed' : ''}" onclick="openModal(${idx})">
-                        <div>
-                            <div class="lc-name">${c.name} <span class="lc-id">${c.id}</span></div>
-                            <div class="lc-sub"><i class="fa-solid fa-location-dot" style="color:var(--accent);"></i> ${c.village} (${c.line})</div>
-                            <div class="lc-sub" style="margin-top:4px;">${c.type} Base Plan • Installment ${c.duesPaid}/${c.totalDues}</div>
-                        </div>
-                        <div style="text-align: right;">
-                            <div class="lc-amt">₹${dueAmt}</div>
-                            ${isPending ? `<span class="badge" style="background:#FEE2E2; color:var(--danger);">Overdue</span>` : ''}
-                            ${isPaid ? `<span class="badge" style="background:var(--success); color:white;">Paid</span>` : ''}
-                        </div>
-                    </div>`;
+                let dueAmt = c.emi + c.overdueAmount;
+                
+                if (matchesSearch && matchesDistrict && matchesAgent) {
+                    activeAccounts++;
+                    tTarget += dueAmt;
+                    if(c.statusToday === 'paid') tCol += dueAmt;
+                    if(c.statusToday === 'pending') tPen += dueAmt;
+
+                    let isPaid = c.statusToday === 'paid';
+                    let dueInfo = calculateAging(c);
+
+                    html += `
+                        <div class="list-card glass-panel ${c.statusToday === 'pending' ? 'overdue' : ''} ${isPaid ? 'completed' : ''}" onclick="openModal(${idx})">
+                            <div class="lc-info-container">
+                                ${c.photo ? `<img src="${c.photo}" class="c-photo-thumb">` : ''}
+                                <div>
+                                    <div class="lc-name">${c.name} <span class="lc-id-tag">${c.id}</span></div>
+                                    <div class="lc-sub">
+                                        <span><i class="fa-solid fa-map-location-dot"></i> ${c.district || ''}</span>
+                                        <span><i class="fa-solid fa-route" style="color:var(--accent);"></i> ${c.line || ''}</span>
+                                    </div>
+                                    <div class="lc-sub" style="margin-top:6px; font-weight:800; background:rgba(0,0,0,0.04); padding:4px 8px; border-radius:6px; width:fit-content; color:${dueInfo.color}; border:1px solid var(--border);">
+                                        <i class="fa-regular fa-clock"></i> ${dueInfo.text}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="lc-amt-container">
+                                <div class="lc-amt">₹${dueAmt.toLocaleString('en-IN')}</div>
+                                ${c.statusToday === 'pending' ? `<span class="badge" style="background:rgba(239,68,68,0.1); color:var(--danger);">Overdue</span>` : ''}
+                                ${isPaid ? `<span class="badge" style="background:rgba(16,185,129,0.1); color:var(--success);">Paid</span>` : ''}
+                            </div>
+                        </div>`;
+                }
             });
 
-            document.getElementById('dash-target').innerText = `₹ ${tTarget.toLocaleString('en-IN')}`; 
-            document.getElementById('dash-col').innerText = `₹ ${tCol.toLocaleString('en-IN')}`;
-            document.getElementById('dash-pen').innerText = `₹ ${tPen.toLocaleString('en-IN')}`; 
-            document.getElementById('dash-new').innerText = `₹ ${tNew.toLocaleString('en-IN')}`;
-            document.getElementById('dash-active-count').innerText = activeAccountsCount;
-            document.getElementById('customer-list').innerHTML = html || `<div style="text-align:center; padding:40px; color:var(--text-muted); font-weight:800;">இன்றைய பைப்பலைனில் கணக்குகள் எதுவும் இல்லை.</div>`;
+            animateValue(document.getElementById('dash-target'), 0, tTarget, 1000, true);
+            animateValue(document.getElementById('dash-col'), 0, tCol, 1000, true);
+            animateValue(document.getElementById('dash-pen'), 0, tPen, 1000, true);
+            animateValue(document.getElementById('dash-new'), 0, tNew, 1000, true);
+            animateValue(document.getElementById('dash-active-count'), 0, activeAccounts, 1000);
+            
+            let perc = tTarget > 0 ? Math.round((tCol / tTarget) * 100) : 0;
+            animateValue(document.getElementById('dash-perc'), 0, perc, 1000);
+            
+            document.getElementById('tot-acc-txt').innerText = `Total Accounts: ${activeAccounts}`;
+            document.getElementById('customer-list').innerHTML = html || `<div style="text-align:center; padding:40px; color:var(--text-muted); font-weight:800;">No active customers found.</div>`;
+        }
+
+        function switchModalTab(tab) {
+            document.querySelectorAll('.m-tab').forEach(t => t.classList.remove('active'));
+            document.getElementById('tab-'+tab).classList.add('active');
+            if(tab === 'log') { document.getElementById('modal-content-log').style.display = 'block'; document.getElementById('modal-content-sch').style.display = 'none'; }
+            else { document.getElementById('modal-content-log').style.display = 'none'; document.getElementById('modal-content-sch').style.display = 'block'; }
         }
 
         function openModal(idx) {
             activeIdx = idx; let c = db[idx];
             let paidAmt = c.duesPaid * c.emi; let dueAmt = c.emi + c.overdueAmount;
 
-            document.getElementById('m-name').innerText = c.name; document.getElementById('m-id').innerText = c.id;
-            document.getElementById('m-village').innerText = c.village; document.getElementById('m-line').innerText = c.line;
-            document.getElementById('m-start-date').innerText = c.startDate;
+            if(c.photo) { document.getElementById('m-photo').src = c.photo; document.getElementById('m-photo').style.display = 'block'; } 
+            else { document.getElementById('m-photo').style.display = 'none'; }
             
-            // Standard cross-origin resilient direct call handler
-            document.getElementById('m-call-btn').onclick = function(e) {
-                e.preventDefault();
-                window.location.href = "tel:" + c.mobile;
-            };
+            document.getElementById('m-name').innerText = c.name; document.getElementById('m-id').innerText = c.id;
+            document.getElementById('m-district').innerText = c.district; document.getElementById('m-village').innerText = c.village; 
+            document.getElementById('m-line').innerText = c.line; document.getElementById('m-start-date').innerText = c.startDate;
+            
+            let aging = calculateAging(c);
+            let agingBadge = document.getElementById('m-aging');
+            agingBadge.innerText = aging.aging;
+            agingBadge.style.background = aging.aging.includes('Recent') ? 'rgba(245,176,65,0.2)' : (aging.aging.includes('Moderate') ? 'rgba(245,176,65,0.5)' : 'rgba(255,71,87,0.2)');
+            agingBadge.style.color = aging.aging.includes('Recent') ? 'var(--accent)' : 'var(--danger)';
+
+            document.getElementById('m-call-btn').onclick = function(e) { e.preventDefault(); window.location.href = "tel:" + c.mobile; };
+            let waMsg = `வணக்கம் ${c.name}, \n\nVS Fin Serv கணக்கு தவணை விவரம்.\nஅசல்: ₹${c.principal}\nநிலுவை தொகை: ₹${c.totalAmount - paidAmt}\n\nநன்றி.`;
+            document.getElementById('m-wa-btn').href = `https://wa.me/91${c.mobile}?text=${encodeURIComponent(waMsg)}`;
 
             document.getElementById('m-principal').innerText = `₹${c.principal.toLocaleString('en-IN')}`; 
-            document.getElementById('m-total').innerText = `₹${c.totalAmount.toLocaleString('en-IN')}`;
-            document.getElementById('m-paid-amt').innerText = `₹${paidAmt.toLocaleString('en-IN')}`; 
             document.getElementById('m-bal').innerText = `₹${(c.totalAmount - paidAmt).toLocaleString('en-IN')}`;
             document.getElementById('m-paid-dues').innerText = c.duesPaid; document.getElementById('m-tot-dues').innerText = c.totalDues;
             document.getElementById('m-overdue').innerText = `₹${c.overdueAmount.toLocaleString('en-IN')}`;
 
             let hHtml = "";
-            [...c.history].reverse().forEach(h => { hHtml += `<div class="h-item"><span style="color:var(--text-main);">${h.date}</span><span style="color:${h.status==='Paid'?'var(--success)':'var(--danger)'};">${h.status} (₹${h.amount})</span></div>`; });
-            document.getElementById('m-history').innerHTML = hHtml || `<div style="text-align:center; color:#888; padding:20px; font-size:13px; font-weight:700;">வரலாற்று ஆவணங்கள் எதுவும் இல்லை.</div>`;
+            [...c.history].reverse().forEach(h => { 
+                hHtml += `<div class="h-item"><span class="hi-date"><i class="fa-regular fa-clock"></i> ${h.date}</span><span class="hi-status ${h.status === 'Paid' ? 'paid' : 'pen'}">${h.status} (₹${h.amount.toLocaleString('en-IN')})</span></div>`; 
+            });
+            document.getElementById('m-history').innerHTML = hHtml || `<div style="text-align:center; color:#888; padding:20px; font-size:14px; font-weight:700;">No history available.</div>`;
 
+            let schHtml = "<tr><th>No.</th><th>Amount</th><th>Status</th></tr>";
+            for(let i=1; i<=c.totalDues; i++) {
+                let sClass = i <= c.duesPaid ? "tr-paid" : (i === c.duesPaid + 1 && c.statusToday==='pending' ? "tr-pen" : "tr-up");
+                let sText = i <= c.duesPaid ? "Paid" : (i === c.duesPaid + 1 && c.statusToday==='pending' ? "Overdue" : "Upcoming");
+                schHtml += `<tr class="${sClass}"><td>#${i}</td><td>₹${c.emi}</td><td>${sText}</td></tr>`;
+            }
+            document.getElementById('sch-table').innerHTML = schHtml;
+
+            // BUG 1 FIX: ACTION ROW BUTTONS ALIGNMENT
             let aHtml = "";
             if(c.statusToday === 'unpaid') {
                 aHtml = `
-                    <button class="btn-act" style="background:#FEE2E2; color:var(--danger);" onclick="processAction('pending', false)">
-                        <i class="fa-solid fa-triangle-exclamation"></i> Mark Pending
-                    </button>
-                    <button class="btn-act" style="background:var(--success); color:white;" onclick="processAction('paid', false)">
-                        <i class="fa-solid fa-floppy-disk"></i> Save Only ₹${dueAmt}
-                    </button>
-                    <button class="btn-act" style="background:var(--primary); color:var(--accent); grid-column: span 2;" onclick="processAction('paid', true)">
-                        <i class="fa-solid fa-file-pdf"></i> Collect Due & Print Invoice Receipt
-                    </button>`;
+                    <button class="btn-act pending" style="background:rgba(239,68,68,0.1); color:var(--danger);" onclick="processAction('pending', false); vibrateBtn();"><i class="fa-solid fa-triangle-exclamation"></i> Mark Pending</button>
+                    <button class="btn-act collect" style="background:var(--success); color:white;" onclick="processAction('paid', false); vibrateBtn();"><i class="fa-solid fa-floppy-disk"></i> Save ₹${dueAmt.toLocaleString('en-IN')}</button>
+                    <button class="btn-act primary" style="background:var(--primary); color:white; grid-column: span 2;" onclick="processAction('paid', true); vibrateBtn();"><i class="fa-solid fa-file-pdf"></i> Collect & PDF Bill</button>`;
             } else {
                 aHtml = `
-                    <button class="btn-act" style="background:var(--surface); border:2px solid var(--danger); color:var(--danger);" onclick="resetStatusToday()">
-                        <i class="fa-solid fa-rotate-left"></i> Reset Recovery Status
-                    </button>
-                    <button class="btn-act" style="background:var(--primary); color:var(--accent); ${c.statusToday==='pending'?'display:none;':''}" onclick="downloadSeparatePDF()">
-                        <i class="fa-solid fa-file-pdf"></i> Re-print Receipt PDF
-                    </button>`;
+                    <button class="btn-act pending" style="background:var(--bg); color:var(--text-main); grid-column: span 2; border:1px solid var(--border);" onclick="resetStatusToday(); vibrateBtn();"><i class="fa-solid fa-rotate-left"></i> Undo Action</button>
+                    ${c.statusToday === 'paid' ? `<button class="btn-act primary" style="background:var(--primary); color:white; grid-column: span 2;" onclick="downloadSeparatePDF(); vibrateBtn();"><i class="fa-solid fa-file-pdf"></i> Reprint Receipt</button>` : ''}`;
             }
             document.getElementById('m-actions').innerHTML = aHtml;
+            switchModalTab('log'); 
             document.getElementById('customer-modal').classList.add('active');
         }
 
         function closeModal(id) { document.getElementById(id).classList.remove('active'); }
 
-        // INTERACTIVE STATE RESET LOGIC
         function resetStatusToday() {
             let c = db[activeIdx];
             if(c.statusToday === 'paid') { c.duesPaid -= 1; } 
             else if (c.statusToday === 'pending') { c.overdueAmount -= c.emi; }
             c.history.pop(); c.statusToday = 'unpaid';
             saveDB(); renderDashboard(); openModal(activeIdx);
-            showAlert('warning', 'Status Reset Done', 'வாடிக்கையாளரின் இன்றைய நிலை மாற்றியமைக்கப்பட்டது.');
+            showAlert('warning', 'Reset Complete', 'Status reverted.');
         }
 
         function downloadSeparatePDF() {
-            let c = db[activeIdx]; 
-            let lastPayment = c.history[c.history.length - 1];
+            let c = db[activeIdx]; let lastPayment = c.history[c.history.length - 1];
             let amt = lastPayment ? lastPayment.amount : c.emi;
-            showAlert('success', 'Re-printing', 'ரசீது நகல் பதிவிறக்கம் செய்யப்படுகிறது...');
-            generatePDF(c, "EMI Recovery Settlement Duplicate Invoice", `₹ ${amt}`);
+            generatePDF(c, "EMI Clearance Receipt", `₹ ${amt.toLocaleString('en-IN')}`);
         }
 
         function processAction(action, needsPDF) {
@@ -684,55 +1091,112 @@
             if(action === 'paid') {
                 c.duesPaid += 1; c.overdueAmount = 0; c.statusToday = 'paid';
                 c.history.push({ date: dateStr, status: 'Paid', amount: amtHandled });
-                if(needsPDF) { 
-                    showAlert('success', 'Capital Restructured', 'ரசீது அச்சிடப்படுகிறது...'); 
-                    generatePDF(c, "EMI Recovery Settlement Official Invoice", `₹ ${amtHandled}`); 
-                } else { 
-                    showAlert('success', 'Ledger Written', `₹ ${amtHandled} வசூல் பதிவு செய்யப்பட்டது.`); 
-                }
+                if(needsPDF) { generatePDF(c, "EMI Clearance Receipt", `₹ ${amtHandled.toLocaleString('en-IN')}`); } 
+                else { showAlert('success', 'Logged', `₹ ${amtHandled.toLocaleString('en-IN')} received.`); }
             } else {
                 c.overdueAmount += c.emi; c.statusToday = 'pending';
-                c.history.push({ date: dateStr, status: 'Overdue Pending', amount: c.emi });
-                showAlert('warning', 'Account Flagged', "இன்றைய தவணை பெண்டிங் பட்டியலில் சேர்க்கப்பட்டது.");
+                c.history.push({ date: dateStr, status: 'Pending', amount: c.emi });
+                showAlert('warning', 'Flagged', "Marked as Overdue.");
             }
-            saveDB(); closeModal('customer-modal'); renderDashboard();
+            saveDB(); try { firestore.collection("customers").doc(c.id).set(c).catch(e=>{}); } catch(e){}
+            closeModal('customer-modal'); renderDashboard();
         }
 
         function showAlert(type, title, msg) {
             let icon = document.getElementById('alert-icon');
-            icon.className = `alert-icon ${type}`; icon.innerHTML = type === 'success' ? '<i class="fa-solid fa-check"></i>' : '<i class="fa-solid fa-exclamation"></i>';
-            document.getElementById('alert-title').innerText = title; document.getElementById('alert-title').style.color = type === 'success' ? 'var(--primary)' : 'var(--accent)';
+            icon.className = `alert-icon ${type}`; 
+            icon.innerHTML = type === 'success' ? '<i class="fa-solid fa-check"></i>' : '<i class="fa-solid fa-exclamation"></i>';
+            document.getElementById('alert-title').innerText = title; 
+            document.getElementById('alert-title').style.color = type === 'success' ? 'var(--success)' : 'var(--danger)';
             document.getElementById('alert-msg').innerText = msg; 
             document.getElementById('alert-modal').classList.add('active');
-            setTimeout(() => { closeModal('alert-modal'); }, 2000);
+            setTimeout(() => { closeModal('alert-modal'); }, 2500); 
         }
 
-        // FOOLPROOF ZERO-LATENCY MOBILE PDF ENGINES
+        // NEW FEATURE: Download CSV Ledger
+        function downloadCSVReport() {
+            let csvContent = "data:text/csv;charset=utf-8,";
+            csvContent += "Customer ID,Name,Mobile,District,Line,Principal,Total Amount,Paid Dues,Overdue Amount\n";
+            db.forEach(c => {
+                let row = `${c.id},${c.name},${c.mobile},${c.district},${c.line},${c.principal},${c.totalAmount},${c.duesPaid},${c.overdueAmount}`;
+                csvContent += row + "\n";
+            });
+            let encodedUri = encodeURI(csvContent);
+            let link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", `VS_Fin_Ledger_Report_${todayStr}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+        }
+
+        function renderAnalytics() {
+            let tVal = 0, tPrin = 0, tInt = 0, tCol = 0, actCount = 0;
+            db.forEach(c => {
+                if(c.duesPaid < c.totalDues) {
+                    actCount++; tVal += c.totalAmount; tPrin += c.principal; tInt += (c.totalAmount - c.principal);
+                }
+            });
+            document.getElementById('a-port').innerText = `₹ ${tVal.toLocaleString('en-IN')}`;
+            document.getElementById('a-prin').innerText = `₹ ${tPrin.toLocaleString('en-IN')}`;
+            document.getElementById('a-int').innerText = `₹ ${tInt.toLocaleString('en-IN')}`;
+            document.getElementById('a-avg').innerText = `₹ ${(actCount>0 ? Math.round(tVal/actCount) : 0).toLocaleString('en-IN')}`;
+        }
+
+        // FOOL-PROOF PDF ENGINE (BUG 2 FIX)
         function generatePDF(c, desc, amountStr) {
-            document.getElementById('pdf-id').innerText = c.id; document.getElementById('pdf-mobile').innerText = c.mobile;
-            document.getElementById('pdf-location').innerText = `${c.village} (${c.line})`;
+            document.getElementById('pdf-loading-overlay').style.display = 'flex'; // Show loading screen
+            
+            document.getElementById('pdf-id').innerText = c.id; 
+            document.getElementById('pdf-mobile').innerText = c.mobile;
+            document.getElementById('pdf-name').innerText = c.name; 
             document.getElementById('pdf-date').innerText = new Date().toLocaleString('en-IN');
-            document.getElementById('pdf-name').innerText = c.name; document.getElementById('pdf-type').innerText = c.type;
-            document.getElementById('pdf-desc').innerText = desc; document.getElementById('pdf-amount').innerText = amountStr;
+            document.getElementById('pdf-desc').innerText = desc; 
+            document.getElementById('pdf-amount').innerText = amountStr;
+
+            // DIGITAL SIGNATURE IN PDF
+            let sigImg = document.getElementById('pdf-sig-img');
+            let sigCon = document.getElementById('pdf-sig-container');
+            if(c.signature && c.signature.length > 100) {
+                sigImg.src = c.signature;
+                sigCon.style.display = 'block';
+            } else {
+                sigCon.style.display = 'none';
+                sigImg.src = "";
+            }
 
             let renderZone = document.getElementById('pdf-render-zone');
-            let contentEl = document.getElementById('pdf-content');
-            
-            renderZone.style.display = 'flex';
             
             let opt = { 
-                margin: 0.4, 
-                filename: `VS_Fin_Invoice_${c.id}_${Date.now()}.pdf`, 
+                margin: 0.5, 
+                filename: `VS_Fin_Invoice_${c.id}.pdf`, 
                 image: { type: 'jpeg', quality: 1 }, 
-                html2canvas: { scale: 2, useCORS: true }, 
+                html2canvas: { scale: 2, useCORS: true, logging: false }, 
                 jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' } 
             };
             
+            // Wait slightly for DOM to settle, then save
             setTimeout(() => {
-                html2pdf().set(opt).from(contentEl).save().then(() => { 
-                    renderZone.style.display = 'none'; 
+                html2pdf().set(opt).from(document.getElementById('pdf-content')).save().then(() => { 
+                    document.getElementById('pdf-loading-overlay').style.display = 'none'; 
+                    showAlert('success', 'Disbursed', 'PDF Downloaded.');
                 });
-            }, 600); 
+            }, 500); 
+        }
+
+        function exportData() {
+            let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(db));
+            let dl = document.createElement('a'); dl.setAttribute("href", dataStr); dl.setAttribute("download", `VS_Fin_Backup_${todayStr}.json`);
+            document.body.appendChild(dl); dl.click(); dl.remove();
+            showAlert('success', 'Backup Exported', 'Local backup downloaded.');
+        }
+        function importData(event) {
+            let file = event.target.files[0]; if(!file) return;
+            let reader = new FileReader();
+            reader.onload = function(e) {
+                try { let importedDB = JSON.parse(e.target.result); if(Array.isArray(importedDB)) { db = importedDB; saveDB(); showAlert('success', 'Restored', 'Data restored successfully.'); location.reload(); } } 
+                catch (err) { showAlert('warning', 'Parsing Error', 'Invalid file.'); }
+            }; reader.readAsText(file);
         }
     </script>
 </body>
